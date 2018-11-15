@@ -1,29 +1,23 @@
-import axios from 'axios';
-import md5 from 'md5';
+import { CALL_API, Schemas } from '../middleware/index';
 
-export const FETCH_CHARACTERS = 'fetch_characters';
-export const FETCH_CHARACTER = 'fetch_character';
+export const CHARACTERS_REQUEST = 'CHARACTERS_REQUEST';
+export const CHARACTERS_SUCCESS = 'CHARACTERS_SUCCESS';
+export const CHARACTERS_FAILURE = 'CHARACTERS_FAILURE';
 
-const MARVEL_URL = 'https://gateway.marvel.com:443/v1/public/characters';
-const PUBLIC_KEY = 'f4a98ab558f3985f917fbc86ab5bf8a5';
-const PRIV_KEY = '037048bbc0323698281e29bb0f596cfc365018c2';
+const fetchCharacters = charactersEndpoint => ({
+  [CALL_API]: {
+    types: [CHARACTERS_REQUEST, CHARACTERS_SUCCESS, CHARACTERS_FAILURE],
+    endPoint: charactersEndpoint,
+    schema: Schemas.CHARACTER_ARRAY
+  }
+});
 
-const ts = Date.now;
-const hash = md5(ts + PRIV_KEY + PUBLIC_KEY);
+export const loadCharacters = urlApiEnd => (dispatch, getState) => {
+  const charactersEndpoint = urlApiEnd || {};
 
-export function fetchCharacters() {
-  const URL = `${MARVEL_URL}?ts=${ts}&apikey=${PUBLIC_KEY}&hash=${hash}`;
-  const request = axios.get(URL);
-  return { type: FETCH_CHARACTERS, payload: request };
-}
+  //if statement to determine if the character list is being extended
 
-export function fetchCharacter(id) {
-  const ts = Date.now;
-  const hash = md5(ts + PRIV_KEY + PUBLIC_KEY).toString();
-  const URL = `${MARVEL_URL}/${id}?apikey=${PUBLIC_KEY}&hash=${hash}`;
-  const request = axios.get(URL);
-  return {
-    type: FETCH_CHARACTER,
-    payload: request
-  };
-}
+  //if statement to determine if the character is currently loaded
+
+  return dispatch(fetchCharacters(charactersEndpoint));
+};

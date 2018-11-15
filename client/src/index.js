@@ -1,32 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import promise from 'redux-promise';
-import '../node_modules/materialize-css/dist/css/materialize.min.css';
-import './index.css';
+import App from './components/App';
+import rootReducer from './reducers';
+import thunk from 'redux-thunk';
+import ApiCall from './middleware/index';
 
-import reducers from './reducers';
-import home from './components/home';
-import CharacterIndex from './components/characters_index';
-import CharacterShow from './components/character_show';
-import Header from './components/header';
-const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk, ApiCall))
+);
 
-ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
-    <BrowserRouter>
-      <div>
-        <div>
-          <Header />
-          <Switch>
-            <Route path="/characters/:id" component={CharacterShow} />
-            <Route path="/" component={CharacterIndex} />
-          </Switch>
-        </div>
-      </div>
-    </BrowserRouter>
+render(
+  <Provider store={store}>
+    <App />
   </Provider>,
   document.getElementById('root')
 );
