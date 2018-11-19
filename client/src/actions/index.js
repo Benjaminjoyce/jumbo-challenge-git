@@ -14,14 +14,21 @@ const fetchCharacters = (charactersEndpoint, fetchParams) => ({
   }
 });
 
-export const loadCharacters = () => (dispatch, getState) => {
-  const { charactersKey = 'characters', limit = 20, count = 0, offset } =
+export const loadCharacters = charactersKey => (dispatch, getState) => {
+  const { limit = 20, offset } =
     getState().pagination.fetchCharacterList.characters || {};
-  console.log('before if', count);
+
   const charactersEndpoint = `${charactersKey}`;
 
   let nextOffset = typeof offset === 'undefined' ? 0 : offset + 20;
   const fetchParams = `?limit=${limit}&offset=${nextOffset}&`;
+  return dispatch(fetchCharacters(charactersEndpoint, fetchParams));
+  // }
+};
+
+export const loadCharactersById = charactersKey => (dispatch, getState) => {
+  const charactersEndpoint = `${charactersKey}`;
+  const fetchParams = '?';
   return dispatch(fetchCharacters(charactersEndpoint, fetchParams));
   // }
 };

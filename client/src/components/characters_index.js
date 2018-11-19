@@ -1,45 +1,41 @@
 import React, { Component } from 'react';
 import { loadCharacters } from '../actions';
 import { connect } from 'react-redux';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class CharactersIndex extends Component {
-  // renderCharacterList(props) {
-  //   const char = this.props.characters;
-  //   const characterList = char.map(char => (
-  //     <Link to={`/characters/${char.id}`}>
-  //       <li className="list-group-item" key={char.id}>
-  //         <div className="card" style={{ width: '18rem' }}>
-  //           <img
-  //             className="card-img-top"
-  //             src={`${char.thumbnail.path}/portrait_uncanny.${
-  //               char.thumbnail.extension
-  //             }`}
-  //             alt={char.name}
-  //           />
-  //           <h5 className="card-title">{char.name}</h5>
-  //           <p className="card-text">{char.description}</p>
-  //         </div>
-  //       </li>
-  //     </Link>
-  //   ));
-  //   return <ul>{characterList}</ul>;
-  // }
-
   componentDidMount() {
-    this.props.loadCharacters();
+    this.props.loadCharacters('characters');
   }
 
+  renderCharacterList = props => {
+    const { characters } = props;
+    const { ids } = props.characterList;
+    return ids.map(function(val) {
+      return (
+        <div className="card" key={val}>
+          <Link to={`characters/${val}`}>
+            <h3>{characters[val].name}</h3>
+            <span>{characters[val].description}</span>
+          </Link>
+        </div>
+      );
+    });
+  };
   handleLoadMoreClick = () => {
-    console.log('CLICKED');
+    console.log();
     this.props.loadCharacters();
   };
 
   render() {
+    if (!this.props.characterList) {
+      return <div>Loading...</div>;
+    }
     return (
       <div>
         <h3 id="index-header">Your Marvel Characters</h3>
         <button onClick={this.handleLoadMoreClick}>load more</button>
+        {this.renderCharacterList(this.props)}
       </div>
     );
   }
@@ -47,7 +43,8 @@ class CharactersIndex extends Component {
 
 function mapStateToProps(state) {
   return {
-    characters: state.entities.characters
+    characters: state.entities.characters,
+    characterList: state.pagination.fetchCharacterList.characters
   };
 }
 

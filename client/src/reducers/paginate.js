@@ -7,8 +7,6 @@ import union from 'lodash/union';
  and a function telling how to extract the key from an action."-example */
 
 const paginate = ({ types, mapActionToKey }) => {
-  console.log('paginate Types!', types);
-  console.log('paginate mapActionToKey', mapActionToKey);
   //validate that arguements
   if (!Array.isArray(types) || types.length !== 3) {
     throw new Error('Expected types to be an array of three elements.');
@@ -60,13 +58,10 @@ const paginate = ({ types, mapActionToKey }) => {
       case requestType:
       case successType:
       case failureType:
-        console.log('action!', action);
-
         const key = mapActionToKey(action);
         // if (typeof key !== 'string') {
         //   throw new Error('Expected key to be a string.');
         // }
-        console.log('KEY', key);
 
         return {
           ...state,

@@ -11,8 +11,6 @@ const API_END = `ts=${ts}&apikey=${PUBLIC_KEY}&hash=${hash}`;
 //The only part of the api request that will change will be the Endpoint which will
 //have API_START prepennded and API_END appenped
 
-// characters ? limit = 20 & offset=19 & apikey
-
 export const CALL_API = 'Call API';
 
 //Schemas for characterlist
@@ -29,7 +27,6 @@ export const Schemas = {
 //CALLED BY THE DEFAULT MIDDLEWARE, EXECUTES AN APICALL
 
 const callApi = (endpoint, schema, params) => {
-  console.log('fetchparams', params);
   let fullUrl = `${API_START}${endpoint}${params}${API_END}`;
 
   return fetch(fullUrl).then(response =>
@@ -54,10 +51,9 @@ const callApi = (endpoint, schema, params) => {
 //******** START MIDDLEWARE HERE **********///
 //MIDDLEWARE THAT DECIDES WHAT HAPPENS WITH THE ACTION
 export default store => next => action => {
-  console.log('top within the middle', action);
   const callAPI = action[CALL_API];
   //validate action
-  console.log(' middle within the middle', action);
+
   //if the action is 'undefined' pass onto the next middleware
   if (typeof callAPI === 'undefined') {
     return next(action);
