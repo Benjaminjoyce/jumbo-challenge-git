@@ -27,18 +27,19 @@ class CharactersIndex extends Component {
   // }
 
   componentDidMount() {
-    const chars = 'characters';
-    this.props.loadCharacters(chars);
+    this.props.loadCharacters();
   }
 
-  render() {
-    if (!this.props) {
-      return <div>Loading....</div>;
-    }
+  handleLoadMoreClick = () => {
+    console.log('CLICKED');
+    this.props.loadCharacters();
+  };
 
+  render() {
     return (
       <div>
         <h3 id="index-header">Your Marvel Characters</h3>
+        <button onClick={this.handleLoadMoreClick}>load more</button>
       </div>
     );
   }
@@ -46,7 +47,7 @@ class CharactersIndex extends Component {
 
 function mapStateToProps(state) {
   return {
-    state
+    characters: state.entities.characters
   };
 }
 

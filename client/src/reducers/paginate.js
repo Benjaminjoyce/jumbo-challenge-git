@@ -7,7 +7,7 @@ import union from 'lodash/union';
  and a function telling how to extract the key from an action."-example */
 
 const paginate = ({ types, mapActionToKey }) => {
-  console.log('paginate Action!', types);
+  console.log('paginate Types!', types);
   console.log('paginate mapActionToKey', mapActionToKey);
   //validate that arguements
   if (!Array.isArray(types) || types.length !== 3) {
@@ -25,8 +25,6 @@ const paginate = ({ types, mapActionToKey }) => {
   const updatePagination = (
     state = {
       isFetching: false,
-      nextPageUrl: undefined,
-
       ids: []
     },
     action
@@ -40,11 +38,9 @@ const paginate = ({ types, mapActionToKey }) => {
       case successType:
         return {
           ...state,
+          ...action.response.pagination,
           isFetching: false,
-          ids: union(state.ids, action.response)
-          //union returns a new array after comparing and combining a arrays
-          // nextPageUrl: action.response.nextPageUrl
-          /* next pageUrl will need to be returned from the middleware */
+          ids: union(state.ids, action.response.normRes.result)
         };
       case failureType:
         return {
@@ -55,9 +51,11 @@ const paginate = ({ types, mapActionToKey }) => {
         return state;
     }
   };
-
   return (state = {}, action) => {
     // "Update pagination by key"-example
+    if (!action.response) {
+      return state;
+    }
     switch (action.type) {
       case requestType:
       case successType:
@@ -65,7 +63,11 @@ const paginate = ({ types, mapActionToKey }) => {
         console.log('action!', action);
 
         const key = mapActionToKey(action);
+        // if (typeof key !== 'string') {
+        //   throw new Error('Expected key to be a string.');
+        // }
         console.log('KEY', key);
+
         return {
           ...state,
           [key]: updatePagination(state[key], action)
