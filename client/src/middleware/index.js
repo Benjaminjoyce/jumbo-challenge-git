@@ -54,27 +54,15 @@ const callApi = (endpoint, schema, params) => {
   );
 };
 
-//******** START MIDDLEWARE HERE **********///
-//MIDDLEWARE THAT DECIDES WHAT HAPPENS WITH THE ACTION
 export default store => next => action => {
   const callAPI = action[CALL_API];
-  //validate action
 
-  //if the action is 'undefined' pass onto the next middleware
   if (typeof callAPI === 'undefined') {
     return next(action);
   }
-  //object assign the endpoints to callAPI to make it easier to pass onto the next function
   let { endPoint } = callAPI;
   const { schema, types, params } = callAPI;
-
-  /*validation requirements
-  -there are 3 types (request,success and failure)
-    -must be strings
-  -endpoint must be a string
-  
-  */
-
+  console.log(callAPI);
   if (typeof endPoint === 'function') {
     endPoint = endPoint(store.getState());
   }

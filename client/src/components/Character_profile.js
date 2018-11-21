@@ -7,7 +7,7 @@ class CharacterProfile extends Component {
   CID = this.props.match.params.id;
   componentDidMount() {
     const CID = this.props.match.params.id;
-    this.props.loadCharacters(`characters/${CID}`);
+    this.props.loadCharacters(CID, 0);
   }
 
   renderCharacterList = () => {

@@ -8,12 +8,9 @@ const relevantCharactersSelector = createSelector(
   characterSelector,
   paramsSelector,
   (characters, params) => {
-    console.log('reselector characters', characters);
-    console.log('reselector params', params);
-
     const idsList =
       params.characters && params.characters.ids ? params.characters.ids : null;
-    console.log('reselector idsList', idsList);
+
     if (!idsList) {
       return;
     }
@@ -21,7 +18,6 @@ const relevantCharactersSelector = createSelector(
       return characters[item];
     });
 
-    console.log('reselector results', result);
     return result;
   }
 );

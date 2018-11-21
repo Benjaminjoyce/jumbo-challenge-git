@@ -9,8 +9,12 @@ const App = () => (
     <Header />
     <BrowserRouter>
       <Switch>
-        <Route exact path="/characters/:id" component={CharacterProfile} />
-        <Route path="/characters/index/:id" component={Character_index} />
+        <Route
+          exact
+          path="/characters/profile/:id"
+          component={CharacterProfile}
+        />
+        <Route exact path="/characters/:id" component={Character_index} />
       </Switch>
     </BrowserRouter>
   </div>

@@ -20,9 +20,10 @@ export const loadCharacters = (charactersKey, pageNumber) => (
 ) => {
   const { limit = 20 } =
     getState().pagination.fetchCharacterList.characters || {};
-  const offset = (Number(pageNumber) - 1) * 20;
-  console.log('pageNumber', pageNumber);
-  console.log('offset', offset);
+
+  const offset =
+    typeof pageNumber === 'number' ? 0 : (Number(pageNumber) - 1) * 20;
+
   const charactersEndpoint = `${charactersKey}`;
 
   const fetchParams = `?limit=${limit}&offset=${offset}&`;
@@ -45,6 +46,6 @@ const fetchComics = comicsEndpoint => ({
 
 export const loadComics = comicsKey => dispatch => {
   const comicsEndpoint = `${comicsKey}`;
-  console.log('loadComics');
+
   return dispatch(fetchComics(comicsEndpoint));
 };
