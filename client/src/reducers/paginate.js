@@ -22,7 +22,7 @@ const paginate = ({ types, mapActionToKey }) => {
 
   const updatePagination = (
     state = {
-      isFetching: false,
+      data: { isFetching: false },
       ids: []
     },
     action
@@ -31,13 +31,17 @@ const paginate = ({ types, mapActionToKey }) => {
       case requestType:
         return {
           ...state,
-          isFetching: true
+          data: { isFetching: true },
+          ids: []
         };
       case successType:
         return {
           ...state,
-          ...action.response.pagination,
-          isFetching: false,
+          data: {
+            ...action.response.pagination,
+            isFetching: false
+          },
+          // ids: action.response.normRes.result
           ids: union(state.ids, action.response.normRes.result)
         };
       case failureType:

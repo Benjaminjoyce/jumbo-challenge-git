@@ -3,50 +3,60 @@ import { loadCharacters } from '../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { relevantCharactersSelector } from '../middleware/reselect';
+
 class CharactersIndex extends Component {
+  CID = this.props.match.params.id;
   componentDidMount() {
-    this.props.loadCharacters('characters');
+    console.log('props component did mount', this.props);
+    this.props.loadCharacters('characters', this.props.match.params.id);
   }
 
   renderCharacterList = props => {
-    const { characters } = props;
-    const { ids } = props.characterList;
-    return ids.map(function(val) {
+    const { results } = props;
+    return results.map(function(val) {
       return (
-        <div className="card" key={val}>
-          <Link to={`characters/${val}`}>
-            <h3>{characters[val].name}</h3>
-            <span>{characters[val].description}</span>
+        <div className="card" key={val.id}>
+          <Link to={`characters/${val.id}`}>
+            <h3>{val.name}</h3>
+            <span>{val.description}</span>
           </Link>
         </div>
       );
     });
   };
-  handleLoadMoreClick = () => {
-    console.log();
-    this.props.loadCharacters();
+
+  handleclick = () => {
+    this.props.forceUpdate();
   };
 
   render() {
-    if (!this.props.characterList) {
+    console.log('props render', this.props);
+    if (!this.props.results) {
       return <div>Loading...</div>;
     }
     return (
       <div>
+        {console.log('props', this.props.results)}
+        {console.log(this.props.match.params.id)}
         <h3 id="index-header">Your Marvel Characters</h3>
-        <button onClick={this.handleLoadMoreClick}>load more</button>
+        <Link
+          to={(Number(this.props.match.params.id) + 1).toString()}
+          onClick={() => this.handleclick()}
+        >
+          <button>load more</button>
+        </Link>
         {this.renderCharacterList(this.props)}
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
-    characters: state.entities.characters,
-    characterList: state.pagination.fetchCharacterList.characters
+    results: relevantCharactersSelector(state)
   };
-}
+};
 
 export default connect(
   mapStateToProps,

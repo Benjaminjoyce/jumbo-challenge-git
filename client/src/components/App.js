@@ -10,7 +10,7 @@ const App = () => (
     <BrowserRouter>
       <Switch>
         <Route exact path="/characters/:id" component={CharacterProfile} />
-        <Route exact path="/" component={Character_index} />
+        <Route path="/characters/index/:id" component={Character_index} />
       </Switch>
     </BrowserRouter>
   </div>

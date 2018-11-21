@@ -1,67 +1,63 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { Link } from 'react-router-dom';
-import { loadCharactersById } from '../actions';
+import { loadComics, loadCharacters } from '../actions';
+import ComicInfo from './comic_info';
 
 class CharacterProfile extends Component {
+  CID = this.props.match.params.id;
   componentDidMount() {
     const CID = this.props.match.params.id;
-
-    console.log('characters', this.props.characters);
-    console.log('props', this.props);
-    this.props.loadCharactersById(`characters/${CID}`);
+    this.props.loadCharacters(`characters/${CID}`);
   }
-  renderCharacterList = props => {
-    const { characters, characterList } = this.props;
-    const CID = this.props.match.params.id;
-    console.log('props IN RENDER', props);
-    console.log('ids in render', characterList);
-    console.log('characters in render', characters);
 
+  renderCharacterList = () => {
+    const { character } = this.props;
     return (
-      <div className="card" key={characters[CID].id}>
+      <div className="card" key={character.id}>
         <img
           className="activator"
-          src={`${characters[CID].thumbnail.path}/portrait_fantastic.${
-            characters[CID].thumbnail.extension
+          src={`${character.thumbnail.path}/portrait_fantastic.${
+            character.thumbnail.extension
           }`}
-          alt={characters[CID].name}
+          alt={character.name}
         />
-        <h3>{characters[CID].name}</h3>
-        <span>{characters[CID].description}</span>
-        {characters[CID].comics.items.map(function(val) {
-          return (
-            <div className="card" key={val.name}>
-              <h5>{val.name}</h5>
-              <span>{val.resourceURI}</span>
-              <h3>{console.log(val)}</h3>
-            </div>
-          );
+        <h3>{character.name}</h3>
+        <span>{character.description}</span>
+        {character.comics.items.map(function(val) {
+          return <ComicInfo val={val} key={val.name} />;
         })}
       </div>
     );
   };
+
   render() {
-    if (!this.props.characters) {
+    if (!this.props.character) {
       return <div>Loading...</div>;
     }
-    return <div>{this.renderCharacterList(this.props.characters)}</div>;
+    return (
+      <div>
+        {this.renderCharacterList(
+          this.props.characters,
+          this.handleLoadMoreClick
+        )}
+      </div>
+    );
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
+  const FID = !props.match.params.id ? 'FID' : props.match.params.id;
+
+  const thisCharacter =
+    state.entities.marvelCharacters && state.entities.marvelCharacters[FID]
+      ? state.entities.marvelCharacters[FID]
+      : null;
   return {
-    characters: state.entities.characters,
-    characterList: state.pagination.fetchCharacterList
+    character: thisCharacter
   };
 }
 
 export default connect(
   mapStateToProps,
-  { loadCharactersById }
+  { loadComics, loadCharacters }
 )(CharacterProfile);
-
-// if (!target_character == {}) {
-//     let urlEnd = `characters/${CID}`;
-//     console.log(urlEnd);
-// }

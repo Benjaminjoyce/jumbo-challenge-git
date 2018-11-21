@@ -2,7 +2,13 @@ import { combineReducers } from 'redux';
 import merge from 'lodash/merge';
 import paginate from './paginate';
 import * as ActionTypes from '../actions';
-const entities = (state = {}, action) => {
+const entities = (
+  state = {
+    marvelCharacters: {},
+    comics: {}
+  },
+  action
+) => {
   if (action.response) {
     return merge({}, state, action.response.normRes.entities);
   }

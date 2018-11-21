@@ -14,23 +14,37 @@ const fetchCharacters = (charactersEndpoint, fetchParams) => ({
   }
 });
 
-export const loadCharacters = charactersKey => (dispatch, getState) => {
-  const { limit = 20, offset } =
+export const loadCharacters = (charactersKey, pageNumber) => (
+  dispatch,
+  getState
+) => {
+  const { limit = 20 } =
     getState().pagination.fetchCharacterList.characters || {};
-
+  const offset = (Number(pageNumber) - 1) * 20;
+  console.log('pageNumber', pageNumber);
+  console.log('offset', offset);
   const charactersEndpoint = `${charactersKey}`;
 
-  let nextOffset = typeof offset === 'undefined' ? 0 : offset + 20;
-  const fetchParams = `?limit=${limit}&offset=${nextOffset}&`;
+  const fetchParams = `?limit=${limit}&offset=${offset}&`;
   return dispatch(fetchCharacters(charactersEndpoint, fetchParams));
-  // }
 };
 
-export const loadCharactersById = charactersKey => (dispatch, getState) => {
-  const charactersEndpoint = `${charactersKey}`;
-  const fetchParams = '?';
-  return dispatch(fetchCharacters(charactersEndpoint, fetchParams));
-  // }
-};
+export const COMICS_SUCCESS = 'COMICS_SUCCESS';
+export const COMICS_REQUEST = 'COMICS_REQUEST';
+export const COMICS_FAILURE = 'COMICS_FAILURE';
 
-//https://gateway.marvel.com:443/v1/public/characters?limit=20&offset=19&apikey=b1c72
+const fetchComics = comicsEndpoint => ({
+  comicsEndpoint,
+  [CALL_API]: {
+    types: [COMICS_REQUEST, COMICS_SUCCESS, COMICS_FAILURE],
+    endPoint: comicsEndpoint,
+    schema: Schemas.COMIC_SCHEMA,
+    params: '?'
+  }
+});
+
+export const loadComics = comicsKey => dispatch => {
+  const comicsEndpoint = `${comicsKey}`;
+  console.log('loadComics');
+  return dispatch(fetchComics(comicsEndpoint));
+};
