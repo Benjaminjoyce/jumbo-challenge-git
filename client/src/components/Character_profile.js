@@ -4,10 +4,8 @@ import { loadComics, loadCharacters } from '../actions';
 import ComicInfo from './comic_info';
 
 class CharacterProfile extends Component {
-  CID = this.props.match.params.id;
   componentDidMount() {
-    const CID = this.props.match.params.id;
-    this.props.loadCharacters(CID, 0);
+    this.props.loadCharacters(0, this.props.match.params.id);
   }
 
   renderCharacterList = () => {
