@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const pageNumbers =( total,selectedId )=> {
-  const td = Math.ceil(total / 20);
+export const pageNumbers =(total,selectedId )=> {
+
   const numbers = [];
 const selectedNum =  parseInt(selectedId)
-  for (let i = 0; i <= td; i++) {
+  for (let i = 0; i <= total; i++) {
     numbers.push(i);
   }
-  const displayedNums = numbers.slice((selectedNum-8),(selectedNum+8))
-  
+  const displayedNums = selectedNum >=6?numbers.slice((selectedNum-5),(selectedNum+6)) :numbers.slice(0,12)
+
   return displayedNums.map(function(val) {
     console.log("val:",val, "selectedId", selectedId)
     const numClassName = val === selectedNum ? 'waves-effect active':"waves-effect"

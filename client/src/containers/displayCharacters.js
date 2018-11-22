@@ -40,11 +40,13 @@ class DisplayCharacters extends Component {
     this.setState({ path: this.props.match.params.id });
   };
 
-  nextUrlId = a => {
+  nextUrlId = (a,b) => {
     if (a) {
       return this.setState({ path: a });
     }
-    return (Number(this.props.match.params.id) + 1).toString();
+    
+      return (Number(this.props.match.params.id) + b).toString();
+    
   };
 
   render() {
@@ -59,14 +61,7 @@ class DisplayCharacters extends Component {
         <div id="index-container">
           {renderCharacterList(this.props.results)}
         </div>
-        <Link to={this.nextUrlId()} onClick={() => this.handleLoadMoreclick()}>
-          <button>load more </button>
-        </Link>
-
-        <ul className="pagination grey darken-4">
-        {console.log(this.state.path)}
-          {pageNumbers(this.props.total.data.total,this.state.path)}
-        </ul>
+        <PaginationBar total={this.props.total} path={this.state.path} nextUrl={this.nextUrlId}/>
       </div>
     );
   }
@@ -84,3 +79,4 @@ export default connect(
   mapStateToProps,
   { loadCharacters }
 )(DisplayCharacters);
+
