@@ -10,8 +10,6 @@ class PaginationBar extends Component {
   //refacter all used consts
 
   render() {
-    console.log(this.props);
-
     return (
       <div>
         <ul className="pagination grey darken-4">

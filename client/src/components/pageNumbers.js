@@ -19,7 +19,6 @@ export const pageNumbers = (total, selectedId) => {
   };
 
   return findDisplayNumbers(selectedNum).map(function(val) {
-    console.log('val:', val, 'selectedId', selectedId);
     const numClassName =
       val === selectedNum ? 'waves-effect active' : 'waves-effect';
     return (

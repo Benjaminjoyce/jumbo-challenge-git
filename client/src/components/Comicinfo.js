@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 class ComicInfo extends Component {
   render() {
-
     if (!this.props.comics[this.props.val.resourceURI]) {
       return (
         <div>
@@ -19,7 +18,6 @@ class ComicInfo extends Component {
             LOAD MORE INFOR ABOUT THIS COMIC
           </button>
         </div>
-        
       );
     }
     const {
@@ -31,9 +29,8 @@ class ComicInfo extends Component {
       prices,
       id
     } = this.props.comics[this.props.val.resourceURI];
-  
+
     return (
-   
       <div key={id}>
         <span>pageCount:{pageCount}</span>
         <div>
@@ -43,7 +40,7 @@ class ComicInfo extends Component {
               <span>
                 {x.type}:{x.price}
               </span>
-              { console.log(x.images)}
+              {console.log(x.images)}
             </div>
           ))}
         </div>

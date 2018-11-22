@@ -8,9 +8,9 @@ import {
   pageTotalSelector
 } from '../middleware/reselect';
 import { pageNumbers } from '../components/pageNumbers';
-import PaginationBar from './paginationBar'
+import PaginationBar from './paginationBar';
 
-class DisplayCharacters extends Component {
+class CharactersPage extends Component {
   constructor() {
     super();
     this.state = {
@@ -40,13 +40,12 @@ class DisplayCharacters extends Component {
     this.setState({ path: this.props.match.params.id });
   };
 
-  nextUrlId = (a,b) => {
+  nextUrlId = (a, b) => {
     if (a) {
       return this.setState({ path: a });
     }
-    
-      return (Number(this.props.match.params.id) + b).toString();
-    
+
+    return (Number(this.props.match.params.id) + b).toString();
   };
 
   render() {
@@ -61,7 +60,11 @@ class DisplayCharacters extends Component {
         <div id="index-container">
           {renderCharacterList(this.props.results)}
         </div>
-        <PaginationBar total={this.props.total} path={this.state.path} nextUrl={this.nextUrlId}/>
+        <PaginationBar
+          total={this.props.total}
+          path={this.state.path}
+          nextUrl={this.nextUrlId}
+        />
       </div>
     );
   }
@@ -78,5 +81,4 @@ const mapStateToProps = (state, props) => {
 export default connect(
   mapStateToProps,
   { loadCharacters }
-)(DisplayCharacters);
-
+)(CharactersPage);
