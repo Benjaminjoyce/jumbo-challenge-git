@@ -8,6 +8,7 @@ import {
   pageTotalSelector
 } from '../middleware/reselect';
 import { pageNumbers } from '../components/pageNumbers';
+import PaginationBar from './paginationBar'
 
 class DisplayCharacters extends Component {
   constructor() {
@@ -61,8 +62,10 @@ class DisplayCharacters extends Component {
         <Link to={this.nextUrlId()} onClick={() => this.handleLoadMoreclick()}>
           <button>load more </button>
         </Link>
+
         <ul className="pagination grey darken-4">
-          {pageNumbers(this.props.total.data.total)}
+        {console.log(this.state.path)}
+          {pageNumbers(this.props.total.data.total,this.state.path)}
         </ul>
       </div>
     );

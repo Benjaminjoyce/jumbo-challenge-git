@@ -1,16 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const pageNumbers = t => {
-  const td = Math.ceil(t / 20);
+export const pageNumbers =( total,selectedId )=> {
+  const td = Math.ceil(total / 20);
   const numbers = [];
-  let i = 0;
+const selectedNum =  parseInt(selectedId)
   for (let i = 0; i <= td; i++) {
     numbers.push(i);
   }
-  return numbers.map(function(val) {
+  const displayedNums = numbers.slice((selectedNum-8),(selectedNum+8))
+  
+  return displayedNums.map(function(val) {
+    console.log("val:",val, "selectedId", selectedId)
+    const numClassName = val === selectedNum ? 'waves-effect active':"waves-effect"
     return (
-      <li className="waves-effect" key={val}>
+      <li className={numClassName} key={val} >
         <Link action="replace" to={`${val}`} className="text-grey-lighten-5 ">
           {val}
         </Link>
@@ -18,3 +22,4 @@ export const pageNumbers = t => {
     );
   });
 };
+
