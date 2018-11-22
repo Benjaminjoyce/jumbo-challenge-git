@@ -15,12 +15,6 @@ const entities = (
   return state;
 };
 
-/* CODE WRITTEN BELOW ARE COPY/PASTE FROM THE EXAMPLE.
-NOT ALL CONCEPTS UNDERSTOOD AS OF 10AM 15/11 */
-
-// "Updates the pagination data for different actions."
-
-/* !!!!!!!!!!!! code here when changing the const name for charactersEndpoint !!!!!!!!!!!!!*/
 const pagination = combineReducers({
   fetchCharacterList: paginate({
     mapActionToKey: action => action.charactersEndpoint,

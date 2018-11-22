@@ -3,13 +3,6 @@ import { loadComics } from '../actions';
 import { connect } from 'react-redux';
 
 class ComicInfo extends Component {
-  //   handleClick = images => {
-  //     let i = -1;
-  //     do {
-  //       i++;
-  //       <image src={`${images[i].path}${images[i].extension}`} />;
-  //     } while (i < images.length);
-  //   };
   render() {
     if (!this.props.comics[this.props.val.resourceURI]) {
       return (
@@ -33,10 +26,11 @@ class ComicInfo extends Component {
       images,
       characters,
       creators,
-      prices
+      prices,
+      id
     } = this.props.comics[this.props.val.resourceURI];
     return (
-      <div>
+      <div key={id}>
         <span>pageCount:{pageCount}</span>
         <div>
           <span>Prices</span>

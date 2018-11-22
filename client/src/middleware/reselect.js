@@ -4,6 +4,9 @@ const characterSelector = state => state.entities.marvelCharacters;
 
 const paramsSelector = state => state.pagination.fetchCharacterList;
 
+const pageTotalSelector = state =>
+  state.pagination.fetchCharacterList.characters;
+
 const relevantCharactersSelector = createSelector(
   characterSelector,
   paramsSelector,
@@ -22,7 +25,7 @@ const relevantCharactersSelector = createSelector(
   }
 );
 
-export { characterSelector, paramsSelector, relevantCharactersSelector };
+export { characterSelector, pageTotalSelector, relevantCharactersSelector };
 
 // (characters, idsList) => {
 //     characters.map(function (val) {

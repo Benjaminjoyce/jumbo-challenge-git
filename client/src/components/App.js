@@ -1,9 +1,8 @@
 import React from 'react';
 import Header from './Header';
-import Character_index from './Characters_index';
-import Characterindexcopy from './characterindexcopy';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import CharacterProfile from './Character_profile';
+import DisplayCharacters from '../containers/displayCharacters';
 
 const App = () => (
   <div>
@@ -15,7 +14,7 @@ const App = () => (
           path="/characters/profile/:id"
           component={CharacterProfile}
         />
-        <Route exact path="/characters/:id" component={Characterindexcopy} />
+        <Route exact path="/characters/:id" component={DisplayCharacters} />
       </Switch>
     </BrowserRouter>
   </div>

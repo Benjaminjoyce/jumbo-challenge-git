@@ -6,6 +6,8 @@ import App from './components/App';
 import rootReducer from './reducers';
 import thunk from 'redux-thunk';
 import ApiCall from './middleware/index';
+import './index.css';
+import '../node_modules/materialize-css/dist/css/materialize.min.css';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
