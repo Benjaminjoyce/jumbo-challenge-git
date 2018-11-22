@@ -62,7 +62,7 @@ export default store => next => action => {
   }
   let { endPoint } = callAPI;
   const { schema, types, params } = callAPI;
-  console.log(callAPI);
+
   if (typeof endPoint === 'function') {
     endPoint = endPoint(store.getState());
   }

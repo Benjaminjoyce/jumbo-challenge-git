@@ -41,8 +41,8 @@ const paginate = ({ types, mapActionToKey }) => {
             ...action.response.pagination,
             isFetching: false
           },
-          // ids: action.response.normRes.result
-          ids: union(state.ids, action.response.normRes.result)
+          ids: action.response.normRes.result
+          // ids: union(state.ids, action.response.normRes.result)
         };
       case failureType:
         return {
