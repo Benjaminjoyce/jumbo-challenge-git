@@ -10,6 +10,9 @@ class App extends Component {
         <Link to="/characters/1">
           <button>Browse characters</button>
         </Link>
+        <Link to="/comics/1">
+          <button>Browse Comics</button>
+        </Link>
       </div>
     );
   }

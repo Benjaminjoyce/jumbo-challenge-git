@@ -5,11 +5,13 @@ import CharactersPage from './CharactersPage';
 import { Route } from 'react-router-dom';
 import App from './App';
 import CharacterProfilePage from './CharacterProfilePage';
+import ComicsPage from './ComicsPage';
 
 const Root = ({ store }) => (
   <Provider store={store}>
     <div>
-      <Route path="/" component={App} />
+      <Route exact path="/" component={App} />
+      <Route exact path="comics/:id" component={ComicsPage} />
       <Route
         exact
         path="/characters/profile/:id"

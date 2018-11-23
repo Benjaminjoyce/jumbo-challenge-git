@@ -10,14 +10,11 @@ class CharacterProfilePage extends Component {
 
   render() {
     if (!this.props.character) {
-      console.log(this.props);
       return <div>Loading...</div>;
     }
     const { character } = this.props;
-    console.log(this.props);
-    return <CharacterProfile character={character} />;
 
-    // Comic info
+    return <CharacterProfile character={character} />;
   }
 }
 

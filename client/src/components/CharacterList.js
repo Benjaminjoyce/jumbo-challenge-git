@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const renderCharacterList = results => {
+export const CharacterList = ({ results }) => {
+  console.log(results);
   return results.map(function(val) {
     return (
       <div className="card small" key={val.id}>
@@ -15,7 +16,6 @@ export const renderCharacterList = results => {
           />
           <hr />
         </div>
-
         <div className="card-content">
           <span className="card-title activator grey-text text-darken-4">
             {val.name}

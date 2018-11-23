@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { loadCharacters } from '../actions';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
-import { renderCharacterList } from '../components/render_character_list';
+import { CharacterList } from '../components/CharacterList';
+import { Link } from 'react-router-dom';
 import {
   relevantCharactersSelector,
   pageTotalSelector
 } from '../middleware/reselect';
-import { pageNumbers } from '../components/pageNumbers';
-import PaginationBar from './paginationBar';
+
+import PaginationBar from '../components/PaginationBar';
 
 class CharactersPage extends Component {
   constructor() {
@@ -44,7 +44,6 @@ class CharactersPage extends Component {
     if (a) {
       return this.setState({ path: a });
     }
-
     return (Number(this.props.match.params.id) + b).toString();
   };
 
@@ -52,19 +51,17 @@ class CharactersPage extends Component {
     if (!this.props.results) {
       return <div>Loading...</div>;
     }
+    const { total, results } = this.props;
+    const nextUrl = (a, b) => this.nextUrlId(a, b);
     return (
       <div>
-        <Link to={this.nextUrlId()} onClick={() => this.handleLoadMoreclick()}>
-          <button>load more </button>
+        <Link to={Number(this.props.match.params.id) + 1}>
+          <button>next</button>
         </Link>
         <div id="index-container">
-          {renderCharacterList(this.props.results)}
+          <CharacterList results={results} />
         </div>
-        <PaginationBar
-          total={this.props.total}
-          path={this.state.path}
-          nextUrl={this.nextUrlId}
-        />
+        <PaginationBar total={total} path={this.state.path} nextUrl={nextUrl} />
       </div>
     );
   }
