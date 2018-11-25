@@ -7,7 +7,7 @@ const CharacterProfle = ({ character }) => {
   return (
     <div className="container show-character">
       <div className="row">
-        <div className="col l6 m12 s12">
+        <div className="s12">
           <div className="card" key={character.id}>
             <img
               className="activator"
@@ -17,7 +17,7 @@ const CharacterProfle = ({ character }) => {
               alt={character.name}
             />
           </div>
-          <div className="col l6 m12 s12">
+          <div className="col 12">
             <h1>{character.name}</h1>
             <div className="desc">
               <h4>A Little About {character.name}</h4>
@@ -25,13 +25,16 @@ const CharacterProfle = ({ character }) => {
             </div>
 
             <div>
-              <h5>Are you {character.name}'s biggest fan?</h5>
-              <h6>Follow him.</h6>
-              <ul>
+              <div className="row">
                 {character.comics.items.map(function(val) {
-                  return <ComicInfo val={val} key={val.name} />;
+                  return (
+                    <div className="col s4">
+                      <h6>{val.name}</h6>
+                      <ComicInfo val={val} key={val.name} />
+                    </div>
+                  );
                 })}
-              </ul>
+              </div>
             </div>
           </div>
           <Link

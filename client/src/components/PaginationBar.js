@@ -1,41 +1,19 @@
 import React, { Component } from 'react';
-import { pageNumbers } from './pageNumbers';
+import { PageNumbers } from './pageNumbers';
 
-import { pageTotalSelector } from '../middleware/reselect';
+import { pageTotalSelector } from '../reselect/character_reselector';
 import { Link } from 'react-router-dom';
 
-const PaginationBar = ({ total, path, nextUrl }) => {
+const PaginationBar = ({ total, currentPage }) => {
   if (!total) {
     return <div>!props</div>;
   }
 
   const totalPages = Math.ceil(total.data.total / 20);
+  console.log(totalPages);
   return (
     <div>
-      <ul className="pagination grey darken-4">
-        <li className="">
-          <Link to={nextUrl(null, -path + 1)}>
-            <i className="material-icons">first_page</i>
-          </Link>
-        </li>
-        <li className="">
-          <Link to={nextUrl(null, -1)}>
-            <i className="material-icons">chevron_left</i>
-          </Link>
-        </li>
-
-        {pageNumbers(totalPages, path)}
-        <li className="">
-          <Link to={nextUrl(null, 1)}>
-            <i className="material-icons">chevron_right</i>
-          </Link>
-        </li>
-        <li className="">
-          <Link to={nextUrl(null, totalPages - path)}>
-            <i className="material-icons">last_page</i>
-          </Link>
-        </li>
-      </ul>
+      <PageNumbers totalPages={totalPages} currentPage={currentPage} />
     </div>
   );
 };

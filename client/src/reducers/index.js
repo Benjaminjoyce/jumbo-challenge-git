@@ -16,12 +16,20 @@ const entities = (
 };
 
 const pagination = combineReducers({
-  fetchCharacterList: paginate({
+  fetchCharacters: paginate({
     mapActionToKey: action => action.charactersEndpoint,
     types: [
       ActionTypes.CHARACTERS_REQUEST,
       ActionTypes.CHARACTERS_SUCCESS,
       ActionTypes.CHARACTERS_FAILURE
+    ]
+  }),
+  fetchComics: paginate({
+    mapActionToKey: action => action.comicsEndpoint,
+    types: [
+      ActionTypes.COMICS_REQUEST,
+      ActionTypes.COMICS_SUCCESS,
+      ActionTypes.COMICS_FAILURE
     ]
   })
 });

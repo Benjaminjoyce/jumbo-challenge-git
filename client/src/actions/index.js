@@ -14,10 +14,7 @@ const fetchCharacters = (charactersEndpoint, queryString) => ({
   }
 });
 
-export const loadCharacters = (pageNumber, characterId) => (
-  dispatch,
-  getState
-) => {
+export const loadCharacters = (pageNumber, characterId) => dispatch => {
   const offset =
     typeof pageNumber === 'number' ? 0 : (Number(pageNumber) - 1) * 20;
   const charactersEndpoint = !characterId
@@ -32,18 +29,22 @@ export const COMICS_SUCCESS = 'COMICS_SUCCESS';
 export const COMICS_REQUEST = 'COMICS_REQUEST';
 export const COMICS_FAILURE = 'COMICS_FAILURE';
 
-const fetchComics = comicsEndpoint => ({
+const fetchComics = (comicsEndpoint, queryString) => ({
   comicsEndpoint,
   [CALL_API]: {
     types: [COMICS_REQUEST, COMICS_SUCCESS, COMICS_FAILURE],
     endPoint: comicsEndpoint,
     schema: Schemas.COMIC_SCHEMA,
-    params: '?'
+    params: queryString
   }
 });
 
-export const loadComics = comicsKey => dispatch => {
-  const comicsEndpoint = `${comicsKey}`;
+export const loadComics = (pageNumber, comicId) => dispatch => {
+  const offset =
+    typeof pageNumber === 'number' ? 0 : (Number(pageNumber) - 1) * 20;
 
-  return dispatch(fetchComics(comicsEndpoint));
+  const comicsEndpoint = !comicId ? 'comics' : `comics/${comicId}`;
+  const queryString = `?limit=20&offset=${offset}&`;
+
+  return dispatch(fetchComics(comicsEndpoint, queryString));
 };

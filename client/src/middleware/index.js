@@ -44,6 +44,7 @@ const callApi = (endpoint, schema, params) => {
       if (!response.ok) {
         return Promise.reject(json);
       }
+      console.log(json.data);
       const { offset, limit, count, total } = json.data;
       const pagination = { offset, limit, count, total };
 

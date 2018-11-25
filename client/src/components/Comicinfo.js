@@ -7,11 +7,8 @@ class ComicInfo extends Component {
     if (!this.props.comics[this.props.val.resourceURI]) {
       return (
         <div>
-          <span>something</span>
-
           <button
             onClick={() => {
-              console.log(this.props.val.resourceURI);
               this.props.loadComics(this.props.val.resourceURI);
             }}
           >
@@ -27,11 +24,17 @@ class ComicInfo extends Component {
       characters,
       creators,
       prices,
+      thumbnail,
       id
     } = this.props.comics[this.props.val.resourceURI];
 
     return (
       <div key={id}>
+        <img
+          className="activator"
+          src={`${thumbnail.path}/portrait_uncanny.${thumbnail.extension}`}
+          alt={thumbnail.path}
+        />
         <span>pageCount:{pageCount}</span>
         <div>
           <span>Prices</span>

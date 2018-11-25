@@ -6,62 +6,36 @@ import { Link } from 'react-router-dom';
 import {
   relevantCharactersSelector,
   pageTotalSelector
-} from '../middleware/reselect';
+} from '../reselect/character_reselector';
 
 import PaginationBar from '../components/PaginationBar';
 
 class CharactersPage extends Component {
-  constructor() {
-    super();
-    this.state = {
-      path: 1
-    };
-  }
   componentDidMount() {
     this.props.loadCharacters(this.props.match.params.id);
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.path !== this.props.path) {
-      let newPath = this.props.path;
-      this.setState({ path: this.props.path });
-      this.props.loadCharacters(newPath);
+      this.props.loadCharacters(this.props.path);
     }
   }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.match.params.id !== prevState.path) {
-      return { path: nextProps.match.params.id };
-    }
-    return null;
-  }
-
-  handleLoadMoreclick = () => {
-    this.setState({ path: this.props.match.params.id });
-  };
-
-  nextUrlId = (a, b) => {
-    if (a) {
-      return this.setState({ path: a });
-    }
-    return (Number(this.props.match.params.id) + b).toString();
-  };
 
   render() {
     if (!this.props.results) {
       return <div>Loading...</div>;
     }
     const { total, results } = this.props;
-    const nextUrl = (a, b) => this.nextUrlId(a, b);
+    const currentPage = Number(this.props.match.params.id);
     return (
       <div>
-        <Link to={Number(this.props.match.params.id) + 1}>
+        <Link to={(currentPage + 1).toString()}>
           <button>next</button>
         </Link>
         <div id="index-container">
           <CharacterList results={results} />
         </div>
-        <PaginationBar total={total} path={this.state.path} nextUrl={nextUrl} />
+        <PaginationBar total={total} currentPage={currentPage} />
       </div>
     );
   }
