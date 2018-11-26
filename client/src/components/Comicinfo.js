@@ -9,6 +9,7 @@ class ComicInfo extends Component {
         <div>
           <button
             onClick={() => {
+              console.log(this.props.val)
               this.props.loadComics(this.props.val.resourceURI);
             }}
           >

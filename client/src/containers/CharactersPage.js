@@ -1,3 +1,4 @@
+/* @flow */
 import React, { Component } from 'react';
 import { loadCharacters } from '../actions';
 import { connect } from 'react-redux';
@@ -10,14 +11,24 @@ import {
 
 import PaginationBar from '../components/PaginationBar';
 
-class CharactersPage extends Component {
+import type { Match, CharactersResults, Total } from '../flowTypes'
+
+type Props = {
+  match: Match,
+  loadCharacters: Function,
+  results: CharactersResults,
+  total: Total
+}
+
+
+class CharactersPage extends Component<Props>{
   componentDidMount() {
     this.props.loadCharacters(this.props.match.params.id);
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.path !== this.props.path) {
-      this.props.loadCharacters(this.props.path);
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      this.props.loadCharacters(this.props.match.params.id);
     }
   }
 

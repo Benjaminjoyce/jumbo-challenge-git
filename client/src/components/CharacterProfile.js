@@ -1,9 +1,12 @@
+/* @flow */
 import React from 'react';
 import ComicInfo from './Comicinfo';
 import { Link } from 'react-router-dom';
+import type { Character } from '../flowTypes'
 
-const CharacterProfle = ({ character }) => {
-  console.log(character);
+
+
+const CharacterProfle = ({ character }: Character) => {
   return (
     <div className="container show-character">
       <div className="row">
@@ -13,7 +16,7 @@ const CharacterProfle = ({ character }) => {
               className="activator"
               src={`${character.thumbnail.path}/portrait_uncanny.${
                 character.thumbnail.extension
-              }`}
+                }`}
               alt={character.name}
             />
           </div>
@@ -26,7 +29,7 @@ const CharacterProfle = ({ character }) => {
 
             <div>
               <div className="row">
-                {character.comics.items.map(function(val) {
+                {character.comics.items.map(function (val) {
                   return (
                     <div className="col s4">
                       <h6>{val.name}</h6>

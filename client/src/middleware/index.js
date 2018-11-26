@@ -13,6 +13,8 @@ const API_END = `ts=${ts}&apikey=${PUBLIC_KEY}&hash=${hash}`;
 
 export const CALL_API = 'Call API';
 
+
+
 //Schemas for characterlist
 
 const characterSchema = new schema.Entity('marvelCharacters');
@@ -34,6 +36,8 @@ const apiRoot = 'http://gateway.marvel.com/v1/public/';
 //CALLED BY THE DEFAULT MIDDLEWARE, EXECUTES AN APICALL
 
 const callApi = (endpoint, schema, params) => {
+  console.log(typeof schema)
+  console.log(schema)
   const fullUrl =
     endpoint.indexOf(API_ROOT) === -1 && endpoint.indexOf(apiRoot)
       ? API_ROOT + endpoint

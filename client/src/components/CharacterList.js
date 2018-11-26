@@ -1,9 +1,11 @@
+/* @flow */
+
 import React from 'react';
 import { Link } from 'react-router-dom';
+import type{ CharactersResults } from '../flowTypes'
 
-export const CharacterList = ({ results }) => {
-  console.log(results);
-  return results.map(function(val) {
+export const CharacterList = ({ results }: CharactersResults) => {
+  return results.map(function (val) {
     return (
       <div className="card small" key={val.id}>
         <div className="waves-effect waves-block waves-light">
@@ -11,7 +13,7 @@ export const CharacterList = ({ results }) => {
             className="activator"
             src={`${val.thumbnail.path}/portrait_fantastic.${
               val.thumbnail.extension
-            }`}
+              }`}
             alt={val.name}
           />
           <hr />

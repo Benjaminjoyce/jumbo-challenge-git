@@ -1,3 +1,6 @@
+/* @flow */
+
+import type{ LoadCharactersFunction } from '../flowTypes'
 import { CALL_API, Schemas } from '../middleware/index';
 
 export const CHARACTERS_REQUEST = 'CHARACTERS_REQUEST';
@@ -14,13 +17,12 @@ const fetchCharacters = (charactersEndpoint, queryString) => ({
   }
 });
 
-export const loadCharacters = (pageNumber, characterId) => dispatch => {
+export const loadCharacters: LoadCharactersFunction = (pageNumber, characterId) => dispatch => {
   const offset =
     typeof pageNumber === 'number' ? 0 : (Number(pageNumber) - 1) * 20;
   const charactersEndpoint = !characterId
     ? 'characters'
     : `characters/${characterId}`;
-
   const queryString = `?limit=20&offset=${offset}&`;
   return dispatch(fetchCharacters(charactersEndpoint, queryString));
 };
@@ -39,7 +41,9 @@ const fetchComics = (comicsEndpoint, queryString) => ({
   }
 });
 
-export const loadComics = (pageNumber, comicId) => dispatch => {
+
+
+export const loadComics: LoadCharactersFunction = (pageNumber, comicId) => dispatch => {
   const offset =
     typeof pageNumber === 'number' ? 0 : (Number(pageNumber) - 1) * 20;
 
@@ -48,3 +52,9 @@ export const loadComics = (pageNumber, comicId) => dispatch => {
 
   return dispatch(fetchComics(comicsEndpoint, queryString));
 };
+
+
+// pageNumber,
+//   characterId,
+//   comicId,
+//   dispatch
