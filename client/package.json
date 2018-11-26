@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/jest": "^23.3.9",
+    "@types/node": "^10.12.10",
+    "@types/react": "^16.7.7",
+    "@types/react-dom": "^16.0.10",
     "axios": "^0.18.0",
     "bootstrap": "^4.1.3",
     "lodash": "^3.10.1",
@@ -36,7 +40,12 @@
   ],
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "flow-bin": "^0.86.0",
+    "flow-typed": "^2.5.1",
+    "jest": "^20.0.4",
+    "jest-cli": "^20.0.4"
+  },
   "author": "",
   "license": "ISC"
 }

@@ -34,7 +34,6 @@ const apiRoot = 'http://gateway.marvel.com/v1/public/';
 //CALLED BY THE DEFAULT MIDDLEWARE, EXECUTES AN APICALL
 
 const callApi = (endpoint, schema, params) => {
-  // let fullUrl = `${API_START}${endpoint}${params}${API_END}`;
   const fullUrl =
     endpoint.indexOf(API_ROOT) === -1 && endpoint.indexOf(apiRoot)
       ? API_ROOT + endpoint
