@@ -2,11 +2,17 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import type { Comics, Comic } from '../flowTypes'
+import {Comics, Comic}  from '../flowTypes'
 
-const ComicsList = ({ results }: Comics) => {
+type Props ={
+  results:Comics,
+  val:Comic
+}
 
-  return results.map(function (val: Comic) {
+type ComicsListFunction = (results:Comics) => React.Element<typeof div>
+const ComicsList:ComicsListFunction = ({ results }:Props) => {
+
+  return results.map(function (val:Comic) {
 
     return (
       <div className="card small" key={val.id}>

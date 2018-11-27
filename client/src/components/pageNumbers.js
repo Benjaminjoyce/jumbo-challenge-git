@@ -5,8 +5,11 @@ import { Link } from 'react-router-dom';
 
 type Props = {
   totalPages: number,
-  currentPage: number
+  currentPage: number,
+  
 }
+
+
 
 export const PageNumbers = ({ totalPages, currentPage }: Props) => {
   const leftArrows = [
@@ -23,7 +26,8 @@ export const PageNumbers = ({ totalPages, currentPage }: Props) => {
     numbers.push(i);
   }
 
-  const findDisplayNumbers = (selectedNum: number) => {
+  type findNumbersFunction = (selectedNum:number) => Array<number>
+  const findDisplayNumbers:findNumbersFunction = (selectedNum: number) => {
 
     if (selectedNum <= 6) {
       return numbers.slice(0, 12);
@@ -34,8 +38,9 @@ export const PageNumbers = ({ totalPages, currentPage }: Props) => {
     return numbers.slice(selectedNum - 5, selectedNum + 6);
   };
 
+
   const renderNumbers = () =>
-    findDisplayNumbers(selectedNum).map(function (val: number) {
+    findDisplayNumbers(selectedNum).map(function (val) {
 
       const numClassName =
         val === selectedNum ? 'waves-effect active grey ' : 'waves-effect';
@@ -48,8 +53,14 @@ export const PageNumbers = ({ totalPages, currentPage }: Props) => {
       );
     });
 
-  const arrows = x =>
-    x.map(function (val) {
+    type ArrowObject = {
+      to : string,
+      icon:string
+    }
+    type Arrows = (arrowsArray:Array<ArrowObject>) => Array 
+
+  const arrows:Arrows = arrowsArray =>{
+   return arrowsArray.map(function (val) {
       return (
         <li key={val.icon}>
           <Link to={val.to}>
@@ -57,7 +68,11 @@ export const PageNumbers = ({ totalPages, currentPage }: Props) => {
           </Link>
         </li>
       );
-    });
+    }
+   )}
+    
+
+
   return (
     <ul className="pagination blue-grey lighten-5">
       {arrows(leftArrows)}

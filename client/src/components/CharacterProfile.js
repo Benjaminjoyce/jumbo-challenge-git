@@ -3,11 +3,15 @@
 import React from 'react';
 import ComicInfo from './Comicinfo';
 import { Link } from 'react-router-dom';
-import type { Character } from '../flowTypes'
+import  { Character } from '../flowTypes'
 
+type Props = {
+  character:Character
+}
 
+type CharacterProfleFunction = (character:Character) => React.Element<typeof div>
 
-const CharacterProfle = ({ character }: Character) => {
+const CharacterProfle:CharacterProfleFunction = ({ character }:Props) => {
   return (
     <div className="container show-character">
       <div className="row">

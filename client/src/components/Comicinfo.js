@@ -4,13 +4,13 @@
 import React, { Component } from 'react';
 import { loadComics } from '../actions';
 import { connect } from 'react-redux';
-import type{ Comic, LoadComicsFunction, CharacterComicItems } from '../flowTypes'
+import { Comic, LoadComicsFunction, CharacterComicItems } from '../flowTypes'
 
 type Props = {
   comics: Comic,
-  loadComics: LoadComicsFunction,
   val: CharacterComicItems
 }
+
 
 class ComicInfo extends Component<Props>{
   componentDidMount() {
@@ -41,7 +41,7 @@ class ComicInfo extends Component<Props>{
       prices,
       thumbnail,
       id
-    } = this.props.comics[this.props.val.resourceURI];
+    }:Comic = this.props.comics[this.props.val.resourceURI];
 
     return (
       <div key={id}>

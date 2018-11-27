@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { PageNumbers } from './pageNumbers';
 
-import { pageTotalSelector } from '../reselect/character_reselector';
-import { Link } from 'react-router-dom';
+type Props = {
+  total:number,
+  currentPage:number
+}
 
-const PaginationBar = ({ total, currentPage }) => {
+const PaginationBar = ({ total, currentPage }:Props) => {
   if (!total) {
     return <div>!props</div>;
   }

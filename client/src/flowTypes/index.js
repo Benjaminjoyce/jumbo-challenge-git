@@ -1,6 +1,4 @@
-import { loadCharacters } from '../actions';
-import { type } from 'os';
-import { format } from 'util';
+
 
 type RouterParams = {
     id: string
@@ -81,10 +79,11 @@ type ComicsAction = {
 export type Action = | CharactersAction | ComicsAction
 
 
-type Dispatch = (action: FetchAction | ThunkAction | PromiseAction) => any;
+
 type GetState = () => State;
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
+type Dispatch = (action: FetchAction | ThunkAction | PromiseAction) => any;
 
 
 
@@ -101,7 +100,6 @@ export type Comics = {
 
 
 export type Comic = {
-
     characters: CharacterComics,
     description: string,
     creators: ComicCreators,
@@ -116,16 +114,17 @@ export type Comic = {
     thumbnail: ComicsThumbnail,
     title: string,
     upc: string,
-    urls: Array<ComicUrl>
+    urls: Array<ComicUrl>,
+    pageCount:number
 
 }
 
-type ComicUrl = {
+export type ComicUrl = {
     type: string,
     url: string
 }
 
-type ComicsThumbnail = {
+export type ComicsThumbnail = {
     extension: string,
     path: string
 }

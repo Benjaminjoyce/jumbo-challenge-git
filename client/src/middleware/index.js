@@ -6,17 +6,10 @@ const PUBLIC_KEY = 'f4a98ab558f3985f917fbc86ab5bf8a5';
 const PRIV_KEY = '037048bbc0323698281e29bb0f596cfc365018c2';
 const ts = Date.now();
 const hash = md5(ts + PRIV_KEY + PUBLIC_KEY);
-//Marvel Api Keys and required specs to make an api request
 const API_ROOT = 'https://gateway.marvel.com:443/v1/public/';
 const API_END = `ts=${ts}&apikey=${PUBLIC_KEY}&hash=${hash}`;
-//The only part of the api request that will change will be the Endpoint which will
-//have API_START prepennded and API_END appenped
-
 export const CALL_API = 'Call_API';
 
-4
-
-//Schemas for characterlist
 
 const characterSchema = new schema.Entity('marvelCharacters');
 const characterArraySchema = new schema.Array(characterSchema);
@@ -36,8 +29,9 @@ export const Schemas = {
 const apiRoot = 'http://gateway.marvel.com/v1/public/';
 //CALLED BY THE DEFAULT MIDDLEWARE, EXECUTES AN APICALL
 
-const callApi = (endpoint, schema, params) => {
 
+
+const callApi = (endpoint, schema, params) => {
   const fullUrl =
     endpoint.indexOf(API_ROOT) === -1 && endpoint.indexOf(apiRoot)
       ? API_ROOT + endpoint
