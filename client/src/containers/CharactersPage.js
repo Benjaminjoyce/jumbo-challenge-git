@@ -11,11 +11,11 @@ import {
 
 import PaginationBar from '../components/PaginationBar';
 
-import type { Match, CharactersResults, Total } from '../flowTypes'
+import type { Match, CharactersResults, Total, LoadCharactersFunction } from '../flowTypes'
 
 type Props = {
   match: Match,
-  loadCharacters: Function,
+  loadCharacters: LoadCharactersFunction,
   results: CharactersResults,
   total: Total
 }
@@ -26,7 +26,7 @@ class CharactersPage extends Component<Props>{
     this.props.loadCharacters(this.props.match.params.id);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.props.loadCharacters(this.props.match.params.id);
     }
@@ -52,7 +52,7 @@ class CharactersPage extends Component<Props>{
   }
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state, props: Props) => {
   return {
     results: relevantCharactersSelector(state),
     total: pageTotalSelector(state),

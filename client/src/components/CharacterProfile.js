@@ -1,4 +1,5 @@
 /* @flow */
+
 import React from 'react';
 import ComicInfo from './Comicinfo';
 import { Link } from 'react-router-dom';

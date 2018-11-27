@@ -2,10 +2,10 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import type{ CharactersResults } from '../flowTypes'
+import type{ CharactersResults, Character } from '../flowTypes'
 
 export const CharacterList = ({ results }: CharactersResults) => {
-  return results.map(function (val) {
+  return results.map(function (val: Character) {
     return (
       <div className="card small" key={val.id}>
         <div className="waves-effect waves-block waves-light">

@@ -12,7 +12,7 @@ import {
 class ComicsPage extends Component {
   componentDidMount() {
     this.props.loadComics(this.props.match.params.id);
-    console.log('mounted');
+
   }
 
   componentDidUpdate(prevProps) {
@@ -27,7 +27,7 @@ class ComicsPage extends Component {
     }
     const currentPage = Number(this.props.match.params.id);
     const { total, results } = this.props;
-    console.log(this.props);
+
     return (
       <div>
         <div id="index-container">

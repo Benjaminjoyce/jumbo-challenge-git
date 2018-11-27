@@ -1,8 +1,13 @@
+/* @flow */
+
 import React from 'react';
 import { Link } from 'react-router-dom';
+import type { Comics, Comic } from '../flowTypes'
 
-const ComicsList = ({ results }) => {
-  return results.map(function(val) {
+const ComicsList = ({ results }: Comics) => {
+
+  return results.map(function (val: Comic) {
+
     return (
       <div className="card small" key={val.id}>
         <div className="waves-effect waves-block waves-light">
@@ -10,7 +15,7 @@ const ComicsList = ({ results }) => {
             className="activator"
             src={`${val.thumbnail.path}/portrait_fantastic.${
               val.thumbnail.extension
-            }`}
+              }`}
             alt={val.title}
           />
           <hr />

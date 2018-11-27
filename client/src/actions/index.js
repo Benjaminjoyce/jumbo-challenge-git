@@ -24,7 +24,7 @@ export const loadCharacters: LoadCharactersFunction = (pageNumber, characterId) 
     ? 'characters'
     : `characters/${characterId}`;
   const queryString = `?limit=20&offset=${offset}&`;
-  return dispatch(fetchCharacters(charactersEndpoint, queryString));
+  dispatch(fetchCharacters(charactersEndpoint, queryString));
 };
 
 export const COMICS_SUCCESS = 'COMICS_SUCCESS';

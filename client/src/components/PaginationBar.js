@@ -10,7 +10,7 @@ const PaginationBar = ({ total, currentPage }) => {
   }
 
   const totalPages = Math.ceil(total.data.total / 20);
-  console.log(totalPages);
+
   return (
     <div>
       <PageNumbers totalPages={totalPages} currentPage={currentPage} />

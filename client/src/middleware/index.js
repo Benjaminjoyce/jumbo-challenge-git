@@ -1,3 +1,4 @@
+
 import { normalize, schema } from 'normalizr';
 import md5 from 'md5';
 
@@ -11,9 +12,9 @@ const API_END = `ts=${ts}&apikey=${PUBLIC_KEY}&hash=${hash}`;
 //The only part of the api request that will change will be the Endpoint which will
 //have API_START prepennded and API_END appenped
 
-export const CALL_API = 'Call API';
+export const CALL_API = 'Call_API';
 
-
+4
 
 //Schemas for characterlist
 
@@ -36,8 +37,7 @@ const apiRoot = 'http://gateway.marvel.com/v1/public/';
 //CALLED BY THE DEFAULT MIDDLEWARE, EXECUTES AN APICALL
 
 const callApi = (endpoint, schema, params) => {
-  console.log(typeof schema)
-  console.log(schema)
+
   const fullUrl =
     endpoint.indexOf(API_ROOT) === -1 && endpoint.indexOf(apiRoot)
       ? API_ROOT + endpoint
@@ -47,7 +47,7 @@ const callApi = (endpoint, schema, params) => {
       if (!response.ok) {
         return Promise.reject(json);
       }
-      console.log(json.data);
+
       const { offset, limit, count, total } = json.data;
       const pagination = { offset, limit, count, total };
 
@@ -59,6 +59,7 @@ const callApi = (endpoint, schema, params) => {
 };
 
 export default store => next => action => {
+
   const callAPI = action[CALL_API];
 
   if (typeof callAPI === 'undefined') {

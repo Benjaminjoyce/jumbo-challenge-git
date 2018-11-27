@@ -1,15 +1,29 @@
+/* @flow */
+
+
 import React, { Component } from 'react';
 import { loadComics } from '../actions';
 import { connect } from 'react-redux';
+import type{ Comic, LoadComicsFunction, CharacterComicItems } from '../flowTypes'
 
-class ComicInfo extends Component {
+type Props = {
+  comics: Comic,
+  loadComics: LoadComicsFunction,
+  val: CharacterComicItems
+}
+
+class ComicInfo extends Component<Props>{
+  componentDidMount() {
+
+  }
+
   render() {
+
     if (!this.props.comics[this.props.val.resourceURI]) {
       return (
         <div>
           <button
             onClick={() => {
-              console.log(this.props.val)
               this.props.loadComics(this.props.val.resourceURI);
             }}
           >
@@ -44,7 +58,7 @@ class ComicInfo extends Component {
               <span>
                 {x.type}:{x.price}
               </span>
-              {console.log(x.images)}
+
             </div>
           ))}
         </div>

@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { loadComics, loadCharacters } from '../actions';
 import CharacterProfile from '../components/CharacterProfile';
 import { type } from 'os';
-import type { Match, Character } from '../flowTypes'
+import type { Match, Character, LoadCharactersFunction } from '../flowTypes'
 
 
 
 type Props = {
-  loadCharacters: Function,
+  loadCharacters: LoadCharactersFunction,
   match: Match,
   character: Character
 };

@@ -1,7 +1,14 @@
+/* @flow */
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const PageNumbers = ({ totalPages, currentPage }) => {
+
+type Props = {
+  totalPages: number,
+  currentPage: number
+}
+
+export const PageNumbers = ({ totalPages, currentPage }: Props) => {
   const leftArrows = [
     { to: '1', icon: 'first_page' },
     { to: (currentPage - 1).toString(), icon: 'chevron_left' }
@@ -15,7 +22,9 @@ export const PageNumbers = ({ totalPages, currentPage }) => {
   for (let i = 1; i <= totalPages; i++) {
     numbers.push(i);
   }
-  const findDisplayNumbers = selectedNum => {
+
+  const findDisplayNumbers = (selectedNum: number) => {
+
     if (selectedNum <= 6) {
       return numbers.slice(0, 12);
     }
@@ -26,7 +35,8 @@ export const PageNumbers = ({ totalPages, currentPage }) => {
   };
 
   const renderNumbers = () =>
-    findDisplayNumbers(selectedNum).map(function(val) {
+    findDisplayNumbers(selectedNum).map(function (val: number) {
+
       const numClassName =
         val === selectedNum ? 'waves-effect active grey ' : 'waves-effect';
       return (
@@ -39,7 +49,7 @@ export const PageNumbers = ({ totalPages, currentPage }) => {
     });
 
   const arrows = x =>
-    x.map(function(val) {
+    x.map(function (val) {
       return (
         <li key={val.icon}>
           <Link to={val.to}>

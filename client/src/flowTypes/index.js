@@ -1,4 +1,6 @@
 import { loadCharacters } from '../actions';
+import { type } from 'os';
+import { format } from 'util';
 
 type RouterParams = {
     id: string
@@ -8,14 +10,15 @@ export type Match = {
     params: RouterParams
 };
 
-type Comics = {
-    items: Array<ComicList>,
+type CharacterComics = {
+    items: Array<CharacterComicItems>,
     collectionURI: string,
     available: number
 
 }
 
-type ComicList = {
+//ComicInfo
+export type CharacterComicItems = {
     name: string,
     resourceURI: string
 }
@@ -25,9 +28,9 @@ type Thumbnail = {
     path: string,
 }
 
-
+//CharacterProfile.js
 export type Character = {
-    comics: Comics,
+    comics: CharacterComics,
     thumbnail: Thumbnail,
     id: number,
     name: string,
@@ -35,12 +38,13 @@ export type Character = {
 
 }
 
+//CharacterList.js
 export type CharactersResults = {
     results: Array<Character>
 }
 
 
-export type LoadComics = (a: number, b: RouterParams) => FetchActions
+// export type LoadComics = (a: number, b: RouterParams) => FetchActions
 
 
 export type PaginationData = {
@@ -57,12 +61,24 @@ export type Total = {
 }
 
 
-type FetchAction = {
+type CallApi = {
     types: Array<string>,
-    endpoint: string,
+    endPoint: string,
     schema: object,
     params: string
 }
+
+type CharactersAction = {
+    Call_API: CallApi,
+    charactersEndpoint: string
+
+}
+
+type ComicsAction = {
+    Call_API: CallApi,
+    comicsEndpoint: string
+}
+export type Action = | CharactersAction | ComicsAction
 
 
 type Dispatch = (action: FetchAction | ThunkAction | PromiseAction) => any;
@@ -72,5 +88,92 @@ type PromiseAction = Promise<Action>;
 
 
 
+
+
+
 export type LoadCharactersFunction = (a: number | string, b: number | string) => (dispatch: Dispatch, getState: GetState) => void
+export type LoadComicsFunction = (a: number | string, b: number | string) => (dispatch: Dispatch, getState: GetState) => void
+
+export type Comics = {
+    [string]: Comic
+}
+
+
+
+export type Comic = {
+
+    characters: CharacterComics,
+    description: string,
+    creators: ComicCreators,
+    dates: Array<ComicDates>,
+    digitalId: number,
+    events: ComicEvents,
+    format: string,
+    id: number,
+    prices: Array<ComicPrices>,
+    series: ComicSeries,
+    stories: ComicStories,
+    thumbnail: ComicsThumbnail,
+    title: string,
+    upc: string,
+    urls: Array<ComicUrl>
+
+}
+
+type ComicUrl = {
+    type: string,
+    url: string
+}
+
+type ComicsThumbnail = {
+    extension: string,
+    path: string
+}
+
+type ComicStories = {
+    available: number,
+    collectionURI: string,
+    items: Array<ComicStoriesItem>
+}
+
+type ComicStoriesItem = {
+    resourceURI: string,
+    name: string,
+    type: string
+}
+type ComicSeries = {
+    name: string,
+    resourceURI: string
+}
+type ComicPrices = {
+    type: string,
+    prices: number
+}
+
+type ComicEvents = {
+    available: number,
+    collectionURI: string,
+    items: Array
+}
+
+type ComicDates = {
+    type: string,
+    date: number
+}
+
+type ComicCreators = {
+    available: number,
+    returned: number,
+    collectionURI: string,
+    items: Array<ComicCreatorItems>
+
+}
+
+type ComicCreatorItems = {
+    resourceURI: string,
+    name: string,
+    role: string
+}
+
+
 
