@@ -1,0 +1,3 @@
+Cannot call `results.map` because property `map` is missing in `CharactersResults` [1]. (References: [1])
+
+Cannot create `ComicInfo` element because function type [1] requires another argument from function [2] in the return value. (References: [1] [2])
