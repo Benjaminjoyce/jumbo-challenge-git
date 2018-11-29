@@ -57,7 +57,7 @@ export const PageNumbers = ({ totalPages, currentPage }: Props) => {
       to : string,
       icon:string
     }
-    type Arrows = (arrowsArray:Array<ArrowObject>) => Array 
+    type Arrows = (arrowsArray:Array<ArrowObject>) => Array<Object> 
 
   const arrows:Arrows = arrowsArray =>{
    return arrowsArray.map(function (val) {

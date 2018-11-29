@@ -1,3 +1,9 @@
-Cannot call `results.map` because property `map` is missing in `CharactersResults` [1]. (References: [1])
-
-Cannot create `ComicInfo` element because function type [1] requires another argument from function [2] in the return value. (References: [1] [2])
+./flow-typed/npm/axios_v0.18.x.js
+./flow-typed/npm/flow-bin_v0.x.x.js
+./flow-typed/npm/lodash_v4.x.x.js
+./flow-typed/npm/md5_v2.x.x.js
+./flow-typed/npm/normalizr_v3.x.x.js
+./flow-typed/npm/react-redux_v5.x.x.js
+./flow-typed/npm/react-router-dom_v4.x.x.js
+./flow-typed/npm/redux_v4.x.x.js
+./flow-typed/npm/reselect_v4.x.x.js

@@ -1,17 +1,22 @@
 /* @flow */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {withRouter} from 'react-router-dom'
 import { loadComics, loadCharacters } from '../actions';
 import CharacterProfile from '../components/CharacterProfile';
 import { type } from 'os';
-import type { Match, Character, LoadCharactersFunction } from '../flowTypes'
 
+
+import type { Match, LoadCharactersFunction,State } from '../flowTypes'
+import type {Character} from '../flowTypes/characterTypes'
 
 
 type Props = {
   loadCharacters: LoadCharactersFunction,
   match: Match,
-  character: Character
+  character: Character,
+  state:State
 };
 
 
@@ -33,7 +38,7 @@ class CharacterProfilePage extends Component<Props> {
   }
 }
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state:State, props:Props) {
   const FID = !props.match.params.id ? 'FID' : props.match.params.id;
 
   const thisCharacter =
@@ -45,7 +50,7 @@ function mapStateToProps(state, props) {
   };
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   { loadComics, loadCharacters }
-)(CharacterProfilePage);
+)(CharacterProfilePage));

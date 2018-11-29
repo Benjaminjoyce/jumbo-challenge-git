@@ -1,6 +1,9 @@
+/* @flow */ 
 
+import type{Comics} from './comicTypes';
+import type {Characters} from './characterTypes';
 
-type RouterParams = {
+export type RouterParams = {
     id: string
 };
 
@@ -8,39 +11,22 @@ export type Match = {
     params: RouterParams
 };
 
-type CharacterComics = {
-    items: Array<CharacterComicItems>,
-    collectionURI: string,
-    available: number
 
-}
-
-//ComicInfo
-export type CharacterComicItems = {
-    name: string,
-    resourceURI: string
-}
-
-type Thumbnail = {
+export type Thumbnail = {
     extension: string,
     path: string,
 }
 
-//CharacterProfile.js
-export type Character = {
-    comics: CharacterComics,
-    thumbnail: Thumbnail,
-    id: number,
+export type NestedData = {
     name: string,
-    description: string,
+    resourceURI: string,
+    type?:string
 
 }
 
-//CharacterList.js
-export type CharactersResults = {
-    results: Array<Character>
-}
+export type Url = {
 
+}
 
 // export type LoadComics = (a: number, b: RouterParams) => FetchActions
 
@@ -50,7 +36,7 @@ export type PaginationData = {
     total: number,
     limit: number,
     count: number,
-    isFetching: boolean
+    isFetching?: boolean
 }
 
 export type Total = {
@@ -59,18 +45,6 @@ export type Total = {
 }
 
 
-type CallApi = {
-    types: Array<string>,
-    endPoint: string,
-    schema: object,
-    params: string
-}
-
-type CharactersAction = {
-    Call_API: CallApi,
-    charactersEndpoint: string
-
-}
 
 type ComicsAction = {
     Call_API: CallApi,
@@ -83,96 +57,54 @@ export type Action = | CharactersAction | ComicsAction
 type GetState = () => State;
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
-type Dispatch = (action: FetchAction | ThunkAction | PromiseAction) => any;
+export type Dispatch = (Action | ThunkAction | PromiseAction) => any;
 
 
 
 
 
+export type LoadCharactersFunction = (charactersEndpoint?: number | string, queryString?: number | string) => (dispatch?: Dispatch, getState?: GetState) => void
+export type LoadComicsFunction = (comicsEndpoint?: number | string, queryString?: number | string) => Dispatch => FetchCharactersFunction
 
-export type LoadCharactersFunction = (a: number | string, b: number | string) => (dispatch: Dispatch, getState: GetState) => void
-export type LoadComicsFunction = (a: number | string, b: number | string) => (dispatch: Dispatch, getState: GetState) => void
 
-export type Comics = {
-    [string]: Comic
+export type FetchCharactersFunction = (charactersEndpoint:string,queryString:string) => CharactersAction
+
+type CallApi = {
+    types: Array<string>,
+    endPoint: string,
+    schema: Object,
+    params: string
+}
+
+type CharactersAction = {
+    Call_API: CallApi,
+    charactersEndpoint: string
+
 }
 
 
 
-export type Comic = {
-    characters: CharacterComics,
-    description: string,
-    creators: ComicCreators,
-    dates: Array<ComicDates>,
-    digitalId: number,
-    events: ComicEvents,
-    format: string,
-    id: number,
-    prices: Array<ComicPrices>,
-    series: ComicSeries,
-    stories: ComicStories,
-    thumbnail: ComicsThumbnail,
-    title: string,
-    upc: string,
-    urls: Array<ComicUrl>,
-    pageCount:number
+
+export type DispatchReturn ={
+    type:string,
+  response: ResData
 
 }
 
-export type ComicUrl = {
-    type: string,
-    url: string
-}
-
-export type ComicsThumbnail = {
-    extension: string,
-    path: string
-}
-
-type ComicStories = {
-    available: number,
-    collectionURI: string,
-    items: Array<ComicStoriesItem>
-}
-
-type ComicStoriesItem = {
-    resourceURI: string,
-    name: string,
-    type: string
-}
-type ComicSeries = {
-    name: string,
-    resourceURI: string
-}
-type ComicPrices = {
-    type: string,
-    prices: number
-}
-
-type ComicEvents = {
-    available: number,
-    collectionURI: string,
-    items: Array
-}
-
-type ComicDates = {
-    type: string,
-    date: number
-}
-
-type ComicCreators = {
-    available: number,
-    returned: number,
-    collectionURI: string,
-    items: Array<ComicCreatorItems>
-
-}
-
-type ComicCreatorItems = {
-    resourceURI: string,
-    name: string,
-    role: string
+export type ResData = {
+pagination: PaginationData,
+normRes: Entities
 }
 
 
 
+export type State = {
+    entities:Object,
+    pagination:Object
+}
+
+
+export type Entities ={
+    comics?:Comics,
+    marvelCharacters?:Characters
+}

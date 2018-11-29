@@ -1,4 +1,4 @@
-
+/* @flow */
 import { normalize, schema } from 'normalizr';
 import md5 from 'md5';
 
@@ -8,7 +8,7 @@ const ts = Date.now();
 const hash = md5(ts + PRIV_KEY + PUBLIC_KEY);
 const API_ROOT = 'https://gateway.marvel.com:443/v1/public/';
 const API_END = `ts=${ts}&apikey=${PUBLIC_KEY}&hash=${hash}`;
-export const CALL_API = 'Call_API';
+export const CALL_API:'Call_API' ='Call_API';
 
 
 const characterSchema = new schema.Entity('marvelCharacters');
@@ -55,7 +55,7 @@ const callApi = (endpoint, schema, params) => {
 export default store => next => action => {
 
   const callAPI = action[CALL_API];
-
+console.log(action)
   if (typeof callAPI === 'undefined') {
     return next(action);
   }

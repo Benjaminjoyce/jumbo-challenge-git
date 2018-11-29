@@ -4,11 +4,14 @@
 import React, { Component } from 'react';
 import { loadComics } from '../actions';
 import { connect } from 'react-redux';
-import { Comic, LoadComicsFunction, CharacterComicItems } from '../flowTypes'
-
+import {withRouter} from 'react-router-dom'
+import type{  LoadComicsFunction } from '../flowTypes'
+import type {CharacterComicItems} from '../flowTypes/characterTypes'
+import type{Comics} from '../flowTypes/comicTypes'
 type Props = {
-  comics: Comic,
-  val: CharacterComicItems
+  comics: Comics,
+  val: CharacterComicItems,
+  loadComics: LoadComicsFunction 
 }
 
 
@@ -24,6 +27,7 @@ class ComicInfo extends Component<Props>{
         <div>
           <button
             onClick={() => {
+              console.log(this.props.loadComics(this.props.val.resourceURI))
               this.props.loadComics(this.props.val.resourceURI);
             }}
           >
@@ -41,7 +45,7 @@ class ComicInfo extends Component<Props>{
       prices,
       thumbnail,
       id
-    }:Comic = this.props.comics[this.props.val.resourceURI];
+    } = this.props.comics[this.props.val.resourceURI];
 
     return (
       <div key={id}>
@@ -76,7 +80,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   { loadComics }
-)(ComicInfo);
+)(ComicInfo));

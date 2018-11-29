@@ -1,9 +1,8 @@
 /* @flow */
 import type {NestedData,Thumbnail,Url} from './index'
 
-export type ComicsResults = {
-    results: Array<Comic>
-}
+export type ComicsResults = Array<Comic>
+
 
 export type Comics = {
     [string]: Comic
@@ -25,7 +24,8 @@ export type Comic = {
     title: string,
     upc: string,
     urls: Array<Url>,
-    pageCount:number
+    pageCount:number,
+    images:any
 }
 
 //Comic Specific Types

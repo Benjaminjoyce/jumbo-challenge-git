@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { loadCharacters } from '../actions';
 import { connect } from 'react-redux';
 import { CharacterList } from '../components/CharacterList';
-import { Link } from 'react-router-dom';
+import { Link,withRouter } from 'react-router-dom';
 import {
   relevantCharactersSelector,
   pageTotalSelector
@@ -11,7 +11,8 @@ import {
 
 import PaginationBar from '../components/PaginationBar';
 
-import type { Match, CharactersResults, Total, LoadCharactersFunction } from '../flowTypes'
+import type { Match, Total, LoadCharactersFunction,State } from '../flowTypes'
+import type {CharactersResults} from '../flowTypes/characterTypes'
 
 type Props = {
   match: Match,
@@ -52,7 +53,7 @@ class CharactersPage extends Component<Props>{
   }
 }
 
-const mapStateToProps = (state, props: Props) => {
+const mapStateToProps = (state:State, props: Props) => {
   return {
     results: relevantCharactersSelector(state),
     total: pageTotalSelector(state),
@@ -60,7 +61,7 @@ const mapStateToProps = (state, props: Props) => {
   };
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   { loadCharacters }
-)(CharactersPage);
+)(CharactersPage));
