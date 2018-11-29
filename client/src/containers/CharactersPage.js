@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { loadCharacters } from '../actions';
 import { connect } from 'react-redux';
-import { CharacterList } from '../components/CharacterList';
+import  {CharacterList} from '../components/CharacterList';
 import { Link,withRouter } from 'react-router-dom';
 import {
   relevantCharactersSelector,
@@ -45,7 +45,7 @@ class CharactersPage extends Component<Props>{
           <button>next</button>
         </Link>
         <div id="index-container">
-          <CharacterList results={results} />
+           {CharacterList(results)}
         </div>
         <PaginationBar total={total} currentPage={currentPage} />
       </div>

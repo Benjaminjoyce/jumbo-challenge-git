@@ -27,7 +27,6 @@ class ComicInfo extends Component<Props>{
         <div>
           <button
             onClick={() => {
-              console.log(this.props.loadComics(this.props.val.resourceURI))
               this.props.loadComics(this.props.val.resourceURI);
             }}
           >
@@ -47,6 +46,7 @@ class ComicInfo extends Component<Props>{
       id
     } = this.props.comics[this.props.val.resourceURI];
 
+    
     return (
       <div key={id}>
         <img

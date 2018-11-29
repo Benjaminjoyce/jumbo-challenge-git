@@ -46,43 +46,6 @@ export type Total = {
 
 
 
-type ComicsAction = {
-    Call_API: CallApi,
-    comicsEndpoint: string
-}
-export type Action = | CharactersAction | ComicsAction
-
-
-
-type GetState = () => State;
-type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
-type PromiseAction = Promise<Action>;
-export type Dispatch = (Action | ThunkAction | PromiseAction) => any;
-
-
-
-
-
-export type LoadCharactersFunction = (charactersEndpoint?: number | string, queryString?: number | string) => (dispatch?: Dispatch, getState?: GetState) => void
-export type LoadComicsFunction = (comicsEndpoint?: number | string, queryString?: number | string) => Dispatch => FetchCharactersFunction
-
-
-export type FetchCharactersFunction = (charactersEndpoint:string,queryString:string) => CharactersAction
-
-type CallApi = {
-    types: Array<string>,
-    endPoint: string,
-    schema: Object,
-    params: string
-}
-
-type CharactersAction = {
-    Call_API: CallApi,
-    charactersEndpoint: string
-
-}
-
-
 
 
 export type DispatchReturn ={

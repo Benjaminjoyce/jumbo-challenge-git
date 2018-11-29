@@ -23,7 +23,6 @@ export type Character = {
     stories: NestedData,
     events: NestedData,
     urls: Array<Url>,
-
 }
 type CharacterComics = {
     items: Array<CharacterComicItems>,

@@ -1,38 +1,18 @@
 /* @flow */
 
-import React from 'react';
+import React,{Component} from 'react';
 import { Link } from 'react-router-dom';
 import type{ CharactersResults, Character } from '../flowTypes/characterTypes'
+import CharacterInfo from './CharacterInfo'
 type Props ={
-  results: CharactersResults,
+  characters: CharactersResults,
 }
+type CharacterListFunction = (characters:CharactersResults) => Array<any>
+
+export const CharacterList:CharacterListFunction = (characters) =>
+    characters.map(function(character){
+       return (<div key={character.id}><CharacterInfo character={character}/>
+         </div>)
+       })
 
 
-export const CharacterList = ({ results }:Props ) => {
-  console.log(results)
- return results.map(function (val) {
-    return (
-      <div className="card small" key={val.id}>
-        <div className="waves-effect waves-block waves-light">
-          <img
-            className="activator"
-            src={`${val.thumbnail.path}/portrait_fantastic.${
-              val.thumbnail.extension
-              }`}
-            alt={val.name}
-          />
-          <hr />
-        </div>
-        <div className="card-content">
-          <span className="card-title activator grey-text text-darken-4">
-            {val.name}
-          </span>
-          <span>{val.description}</span>
-          <p>
-            <Link to={`profile/${val.id}`}>Find Out More</Link>
-          </p>
-        </div>
-      </div>
-    );
-  });
-};
