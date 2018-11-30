@@ -23,19 +23,18 @@ type Props = {
 };
 
 type LoadCharactersFunction = (pageNumber:string,characterId:string) => void
-class CharacterProfilePage extends Component<Props> {
+class ProfilePage extends Component<Props> {
   componentDidMount() {
-    this.props.loadCharacters(this.props.match.url);
-    console.log((this.props.match.url).split('/'))
-    console.log(this.props.match.url)
+    this.props.loadCharacters(this.props.match.params);
+
   }
   render() {
     if (!this.props.character) {
+      console.log(this.props)
       return <div>Loading...</div>;
     }
     const { character } = this.props;
     return (
-    
     <div>
       <Profile character={character} />
      </div>
@@ -45,14 +44,18 @@ class CharacterProfilePage extends Component<Props> {
 
 type MapStateToPropsFunction = (state:State,props:Props) => {character:Character}
 const mapStateToProps:MapStateToPropsFunction = (state,props) => {
-  let characterId = props.match.params.id || undefined;
-  let character = state.entities.marvelCharacters[characterId] || undefined;
+  const {Uid,type} = props.match.params
+  let characterId = Uid
+  let bg = state.entities[type]
+  const character = bg[Uid]
+  console.log(type)
+  console.log(character)
   return {
-    character
+    character:character
   };
 }
 
 export default withRouter(connect(
   mapStateToProps,
   { loadComics, loadCharacters }
-)(CharacterProfilePage));
+)(ProfilePage));

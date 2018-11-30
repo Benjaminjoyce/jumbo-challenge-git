@@ -5,7 +5,7 @@ import type{Characters} from '../flowTypes/characterTypes'
 import type{State} from '../flowTypes'
 import { createSelector } from 'reselect';
 
-const characterSelector =(state:State) => state.entities.marvelCharacters;
+const characterSelector =(state:State) => state.entities.characters;
 
 const paramsSelector = (state:State) => state.pagination.fetchCharacters;
 

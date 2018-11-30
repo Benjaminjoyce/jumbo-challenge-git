@@ -4,7 +4,7 @@ import paginate from './paginate';
 import * as ActionTypes from '../actions';
 const entities = (
   state = {
-    marvelCharacters: {},
+    characters: {},
     comics: {}
   },
   action

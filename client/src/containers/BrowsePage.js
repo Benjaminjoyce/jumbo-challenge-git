@@ -9,8 +9,10 @@ import {
   pageTotalSelector
 } from '../reselect/character_reselector';
 
-import PaginationBar from '../components/PaginationBar';
+import {pageComicsTotalSelector, relevantComicSelector} from '../reselect/comic_reselector'
 
+import PaginationBar from '../components/PaginationBar';
+ 
 import type { Match, Total,State } from '../flowTypes'
 import type {CharactersResults} from '../flowTypes/characterTypes'
 
@@ -23,22 +25,28 @@ type Props = {
 
 type LoadCharactersFunction = string => void
 
-class CharactersPage extends Component<Props>{
+class BrowsePage extends Component<Props>{
   componentDidMount() {
-    this.props.loadCharacters(this.props.match);
+    this.props.loadCharacters(this.props.match.params);
+    console.log("charactersPage")
+  
+
   }
   componentDidUpdate(prevProps: Props) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
-      this.props.loadCharacters(this.props.match.params.id);
+      this.props.loadCharacters(this.props.match.params);
     }
   }
 
   render() {
     if (!this.props.results) {
+      console.log(this.props)
       return <div>Loading...</div>;
+
     }
     const { total, results } = this.props;
     const currentPage = Number(this.props.match.params.id);
+    console.log(this.props)
     return (
       <div>
         <Link to={(currentPage + 1).toString()}>
@@ -57,14 +65,21 @@ class CharactersPage extends Component<Props>{
 type MapStateToPropsFunction = (state:State,props:Props) => {results:CharactersResults,total:Total,path:string}
 
 const mapStateToProps:MapStateToPropsFunction = (state, props) => {
+console.log(props.match.params.type)
+if(props.match.params.type === 'comics'){
+return{  
+  results: relevantComicSelector(state),
+  total: pageComicsTotalSelector(state)
+  };
+}
+
   return {
     results: relevantCharactersSelector(state),
     total: pageTotalSelector(state),
-    path: props.match.params.id
   };
 };
 
 export default withRouter(connect(
   mapStateToProps,
   { loadCharacters }
-)(CharactersPage));
+)(BrowsePage));

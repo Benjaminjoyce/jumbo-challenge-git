@@ -6,7 +6,7 @@ const comicSelector = (state:State) => state.entities.comics;
 
 const paginationDataSelector = (state:State) => state.pagination.fetchComics;
 
-const pageTotalSelector = (state:State) => state.pagination.fetchComics.comics;
+const pageComicsTotalSelector = (state:State) => state.pagination.fetchComics.comics;
 
 const relevantComicSelector = createSelector(
   comicSelector,
@@ -25,4 +25,4 @@ const relevantComicSelector = createSelector(
   }
 );
 
-export { relevantComicSelector, pageTotalSelector };
+export { relevantComicSelector, pageComicsTotalSelector };

@@ -11,13 +11,13 @@ const API_END = `ts=${ts}&apikey=${PUBLIC_KEY}&hash=${hash}`;
 export const CALL_API:'Call_API' ='Call_API';
 
 
-const characterSchema = new schema.Entity('marvelCharacters');
+const characterSchema = new schema.Entity('characters');
 const characterArraySchema = new schema.Array(characterSchema);
 
 const comicSchema = new schema.Entity(
   'comics',
-  {},
-  { idAttribute: 'resourceURI' }
+  {}
+
 );
 const comicsArraySchema = new schema.Array(comicSchema);
 

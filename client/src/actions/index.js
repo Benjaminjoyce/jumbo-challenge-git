@@ -35,21 +35,20 @@ const fetchCharacters:FetchCharactersFunction = (charactersEndpoint, queryString
 });
 
 type LoadCharactersFunction = (pageNumber:string, characterId:string) => (dispatch: Dispatch) => void;
-export const loadCharacters: LoadCharactersFunction = (pageNumber, characterId) => dispatch => {
+export const loadCharacters: LoadCharactersFunction = (params) => dispatch => {
+  let {type,id,Uid}=params
+  let pageNumber = (Number(id) - 1) * 20 | 0
+  let endPoint = Uid ? `${type}/${Uid}`:`${type}`
+  let queryString = Uid ? '?' : `?limit=20&offset=${pageNumber}&`
 
 
-  const offset =
-    typeof pageNumber === 'number' ? 0 : (Number(pageNumber) - 1) * 20;
-  const charactersEndpoint = !characterId
-    ? 'characters'
-    : `characters/${characterId}`;
-
-
-  const queryString = `?limit=20&offset=${offset}&`;
-  dispatch(fetchCharacters(charactersEndpoint, queryString));
+  if (type === 'comics'){
+    return  dispatch(fetchComics(endPoint, queryString))
+  } 
+  dispatch(fetchCharacters(endPoint, queryString));
 };
 
-//   url.split('/')
+
 //url:"/characters/profile/123123"
 //url:"/characters/profile/123123"
 
