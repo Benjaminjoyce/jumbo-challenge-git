@@ -62,12 +62,22 @@ normRes: Entities
 
 
 export type State = {
-    entities:Object,
-    pagination:Object
+    entities:Entities,
+    pagination:Pagination
+}
+
+type Pagination = {
+    fetchCharacters:SecondLayerPagination,
+    fetchComics:SecondLayerPagination
+}
+
+type SecondLayerPagination={
+    [string]:Total
+
 }
 
 
 export type Entities ={
-    comics?:Comics,
-    marvelCharacters?:Characters
+    comics:Comics,
+    marvelCharacters:Characters
 }

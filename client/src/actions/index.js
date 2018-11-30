@@ -36,15 +36,22 @@ const fetchCharacters:FetchCharactersFunction = (charactersEndpoint, queryString
 
 type LoadCharactersFunction = (pageNumber:string, characterId:string) => (dispatch: Dispatch) => void;
 export const loadCharacters: LoadCharactersFunction = (pageNumber, characterId) => dispatch => {
+
+
   const offset =
     typeof pageNumber === 'number' ? 0 : (Number(pageNumber) - 1) * 20;
   const charactersEndpoint = !characterId
     ? 'characters'
     : `characters/${characterId}`;
+
+
   const queryString = `?limit=20&offset=${offset}&`;
-  console.log(dispatch)
   dispatch(fetchCharacters(charactersEndpoint, queryString));
 };
+
+//   url.split('/')
+//url:"/characters/profile/123123"
+//url:"/characters/profile/123123"
 
 export const COMICS_SUCCESS = 'COMICS_SUCCESS';
 export const COMICS_REQUEST = 'COMICS_REQUEST';

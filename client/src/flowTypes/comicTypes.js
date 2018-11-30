@@ -28,6 +28,8 @@ export type Comic = {
     images:any
 }
 
+
+
 //Comic Specific Types
 type ComicSeries = {
     name: string,

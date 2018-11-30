@@ -11,13 +11,12 @@ const Root = ({ store }) => (
   <Provider store={store}>
     <div>
       <Route exact path="/" component={App} />
-      <Route exact path="/comics/:id" component={ComicsPage} />
       <Route
         exact
-        path="/characters/profile/:id"
+        path=':type/profile/:id' 
         component={CharacterProfilePage}
       />
-      <Route exact path="/characters/:id" component={CharactersPage} />
+      <Route exact path="/:type/:id" component={CharactersPage} />
     </div>
   </Provider>
 );

@@ -2,14 +2,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import type{ Character } from '../flowTypes/characterTypes'
+import type{Comic} from '../flowTypes/comicTypes'
 
 type Props ={
-    character:Character
+    data:Character | Comic
 }
 
-class CharacterInfo extends Component<Props>{
+class CardInfo extends Component<Props>{
     render(){
-        const {id,thumbnail,name,description} = this.props.character
+        const {id,thumbnail,name,title,description} = this.props.data
         return (
             <div className="card small" key={id}>
               <div className="waves-effect waves-block waves-light">
@@ -18,13 +19,13 @@ class CharacterInfo extends Component<Props>{
                   src={`${thumbnail.path}/portrait_fantastic.${
                    thumbnail.extension
                     }`}
-                  alt={name}
+                  alt={name||title}
                 />
                 <hr />
               </div>
               <div className="card-content">
                 <span className="card-title activator grey-text text-darken-4">
-                  {name}
+                  {name||title}
                 </span>
                 <span>{description}</span>
                 <p>
@@ -35,4 +36,4 @@ class CharacterInfo extends Component<Props>{
           );
     }
 }
-export default CharacterInfo
+export default CardInfo

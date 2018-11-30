@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { loadComics } from '../actions';
 import { connect } from 'react-redux';
-import ComicsList from '../components/ComicsList';
+import {CardInfoList} from '../components/CardInfoList';
 import PaginationBar from '../components/PaginationBar';
 import {
   pageTotalSelector,
@@ -14,7 +14,6 @@ class ComicsPage extends Component {
     this.props.loadComics(this.props.match.params.id);
 
   }
-
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.props.loadComics(this.props.match.params.id);
@@ -22,16 +21,16 @@ class ComicsPage extends Component {
   }
 
   render() {
-    if (!this.props.results) {
+    if (!this.props.comics) {
       return <div>Loading...</div>;
     }
     const currentPage = Number(this.props.match.params.id);
-    const { total, results } = this.props;
+    const { total, comics } = this.props;
 
     return (
       <div>
-        <div id="index-container">
-          <ComicsList results={results} />
+      <div id="index-container">
+           {CardInfoList(comics)}
         </div>
         <PaginationBar total={total} currentPage={currentPage} />
       </div>
@@ -41,7 +40,7 @@ class ComicsPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    results: relevantComicSelector(state),
+    comics: relevantComicSelector(state),
     total: pageTotalSelector(state)
   };
 };

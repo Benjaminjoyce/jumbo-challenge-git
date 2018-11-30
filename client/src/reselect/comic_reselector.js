@@ -1,10 +1,12 @@
+/* @flow */ 
 import { createSelector } from 'reselect';
+import type{State} from '../flowTypes'
 
-const comicSelector = state => state.entities.comics;
+const comicSelector = (state:State) => state.entities.comics;
 
-const paginationDataSelector = state => state.pagination.fetchComics;
+const paginationDataSelector = (state:State) => state.pagination.fetchComics;
 
-const pageTotalSelector = state => state.pagination.fetchComics.comics;
+const pageTotalSelector = (state:State) => state.pagination.fetchComics.comics;
 
 const relevantComicSelector = createSelector(
   comicSelector,

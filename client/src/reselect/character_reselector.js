@@ -1,10 +1,15 @@
+/* @flow */ 
+
+
+import type{Characters} from '../flowTypes/characterTypes'
+import type{State} from '../flowTypes'
 import { createSelector } from 'reselect';
 
-const characterSelector = state => state.entities.marvelCharacters;
+const characterSelector =(state:State) => state.entities.marvelCharacters;
 
-const paramsSelector = state => state.pagination.fetchCharacters;
+const paramsSelector = (state:State) => state.pagination.fetchCharacters;
 
-const pageTotalSelector = state => state.pagination.fetchCharacters.characters;
+const pageTotalSelector = (state:State) => state.pagination.fetchCharacters.characters;
 
 const relevantCharactersSelector = createSelector(
   characterSelector,
@@ -19,7 +24,6 @@ const relevantCharactersSelector = createSelector(
     const result = idsList.map(item => {
       return characters[item];
     });
-
     return result;
   }
 );

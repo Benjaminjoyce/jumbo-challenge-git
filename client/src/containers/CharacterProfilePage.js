@@ -4,11 +4,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {withRouter} from 'react-router-dom'
 import { loadComics, loadCharacters } from '../actions';
-import CharacterProfile from '../components/CharacterProfile';
+import Profile from '../components/Profile';
 import { type } from 'os';
+import { CardInfoList } from '../components/CardInfoList';
 
 
-import type { Match, LoadCharactersFunction,State } from '../flowTypes'
+import type { Match,State } from '../flowTypes'
 import type {Character} from '../flowTypes/characterTypes'
 
 
@@ -16,37 +17,38 @@ type Props = {
   loadCharacters: LoadCharactersFunction,
   match: Match,
   character: Character,
-  state:State
+  state:State,
+  mapStateToProps:MapStateToPropsFunction
+  
 };
 
-
+type LoadCharactersFunction = (pageNumber:string,characterId:string) => void
 class CharacterProfilePage extends Component<Props> {
   componentDidMount() {
-    this.props.loadCharacters(0, this.props.match.params.id);
+    this.props.loadCharacters(this.props.match.url);
+    console.log((this.props.match.url).split('/'))
+    console.log(this.props.match.url)
   }
-
-  //LoadCharacters is an action creator
-  //loadCharacters(a : propTypes.number, b: propTypes.string )
-
   render() {
     if (!this.props.character) {
       return <div>Loading...</div>;
     }
     const { character } = this.props;
-
-    return <CharacterProfile character={character} />;
+    return (
+    
+    <div>
+      <Profile character={character} />
+     </div>
+     );
   }
 }
 
-function mapStateToProps(state:State, props:Props) {
-  const FID = !props.match.params.id ? 'FID' : props.match.params.id;
-
-  const thisCharacter =
-    state.entities.marvelCharacters && state.entities.marvelCharacters[FID]
-      ? state.entities.marvelCharacters[FID]
-      : null;
+type MapStateToPropsFunction = (state:State,props:Props) => {character:Character}
+const mapStateToProps:MapStateToPropsFunction = (state,props) => {
+  let characterId = props.match.params.id || undefined;
+  let character = state.entities.marvelCharacters[characterId] || undefined;
   return {
-    character: thisCharacter
+    character
   };
 }
 

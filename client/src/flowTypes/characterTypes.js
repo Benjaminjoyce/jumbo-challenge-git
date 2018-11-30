@@ -24,6 +24,7 @@ export type Character = {
     events: NestedData,
     urls: Array<Url>,
 }
+
 type CharacterComics = {
     items: Array<CharacterComicItems>,
     collectionURI: string,
