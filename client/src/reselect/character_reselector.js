@@ -1,16 +1,24 @@
-/* @flow */ 
+/* @flow */
 
+import type {
+  Characters,
+  CharactersResults
+} from "../flowTypes/characterTypes";
+import type { State, SecondLayerPagination } from "../flowTypes";
+import { createSelector } from "reselect";
 
-import type{Characters} from '../flowTypes/characterTypes'
-import type{State} from '../flowTypes'
-import { createSelector } from 'reselect';
+type CharacterSelectorFunction = State => Characters;
+const characterSelector: CharacterSelectorFunction = (state: State) =>
+  state.entities.characters;
 
-const characterSelector =(state:State) => state.entities.characters;
+type ParamsSelectorFunction = State => SecondLayerPagination;
+const paramsSelector: ParamsSelectorFunction = (state: State) =>
+  state.pagination.fetchCharacters;
 
-const paramsSelector = (state:State) => state.pagination.fetchCharacters;
+const pageTotalSelector = (state: State) =>
+  state.pagination.fetchCharacters.characters;
 
-const pageTotalSelector = (state:State) => state.pagination.fetchCharacters.characters;
-
+type RelevantCharactersSelectorFunction = () => { results: CharactersResults };
 const relevantCharactersSelector = createSelector(
   characterSelector,
   paramsSelector,
@@ -19,12 +27,12 @@ const relevantCharactersSelector = createSelector(
       params.characters && params.characters.ids ? params.characters.ids : null;
 
     if (!idsList) {
-      return;
+      return null;
     }
-    const result = idsList.map(item => {
+    const results = idsList.map(item => {
       return characters[item];
     });
-    return result;
+    return results;
   }
 );
 

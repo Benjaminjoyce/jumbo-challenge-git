@@ -4,6 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import CardInfo from './CardInfo';
 import  type{ Character } from '../flowTypes/characterTypes'
+import {MainImage} from './MainImage'
 
 type Props = {
   character:Character
@@ -15,13 +16,7 @@ const Profile = ({ character }:Props) => {
       <div className="row">
         <div className="s12">
           <div className="card" key={character.id}>
-            <img
-              className="activator"
-              src={`${character.thumbnail.path}/portrait_uncanny.${
-                character.thumbnail.extension
-                }`}
-              alt={character.name}
-            />
+            {MainImage(character.thumbnail)}
           </div>
           <div className="col 12">
             <h1>{character.name}</h1>

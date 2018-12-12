@@ -1,83 +1,73 @@
-/* @flow */ 
+/* @flow */
 
-import type{Comics} from './comicTypes';
-import type {Characters} from './characterTypes';
+import type { Comics } from "./comicTypes";
+import type { Characters } from "./characterTypes";
 
 export type RouterParams = {
-    id: string
+  id: string,
+  type: string,
+  uid: string,
+  path: string
 };
 
 export type Match = {
-    params: RouterParams
+  params: RouterParams
 };
 
-
 export type Thumbnail = {
-    extension: string,
-    path: string,
-}
+  extension: string,
+  path: string
+};
 
 export type NestedData = {
-    name: string,
-    resourceURI: string,
-    type?:string
-
-}
+  name: string,
+  resourceURI: string,
+  type?: string
+};
 
 export type Url = {
-
-}
-
-// export type LoadComics = (a: number, b: RouterParams) => FetchActions
-
+  type: string,
+  url: string
+};
 
 export type PaginationData = {
-    offset: number,
-    total: number,
-    limit: number,
-    count: number,
-    isFetching?: boolean
-}
+  offset: number,
+  total: number,
+  limit: number,
+  count: number,
+  isFetching?: boolean
+};
 
 export type Total = {
-    data: PaginationData,
-    ids: Array<number>
-}
+  data: PaginationData,
+  ids: Array<number>
+};
 
-
-
-
-
-export type DispatchReturn ={
-    type:string,
+export type DispatchReturn = {
+  type: string,
   response: ResData
-
-}
+};
 
 export type ResData = {
-pagination: PaginationData,
-normRes: Entities
-}
-
-
+  pagination: PaginationData,
+  normRes: Entities
+};
 
 export type State = {
-    entities:Entities,
-    pagination:Pagination
-}
+  entities: Entities,
+  pagination: Pagination
+};
 
 type Pagination = {
-    fetchCharacters:SecondLayerPagination,
-    fetchComics:SecondLayerPagination
-}
+  fetchCharacters: SecondLayerPagination,
+  fetchComics: SecondLayerPagination
+};
 
-type SecondLayerPagination={
-    [string]:Total
+export type SecondLayerPagination = {
+  [string]: Total
+};
 
-}
-
-
-export type Entities ={
-    comics:Comics,
-    marvelCharacters:Characters
-}
+export type Entities = {
+  comics: Comics,
+  characters: Characters
+};

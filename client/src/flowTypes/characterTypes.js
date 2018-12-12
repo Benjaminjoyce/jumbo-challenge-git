@@ -1,6 +1,5 @@
 /* @flow */
-import type{NestedData,Thumbnail,Url} from './index'
-
+import type { NestedData, Thumbnail, Url } from "./index";
 
 //CharacterList.js
 
@@ -8,29 +7,29 @@ import type{NestedData,Thumbnail,Url} from './index'
 export type CharactersResults = Array<Character>;
 
 export type Characters = {
-    [number]: Character
-}
+  [number]: Character
+};
 
 export type Character = {
-    name: string,
-    id: number,
-    description: string,
-    modified:string,
-    thumbnail:Thumbnail,
-    resourceURI:string,
-    comics: CharacterComics,
-    series: NestedData,
-    stories: NestedData,
-    events: NestedData,
-    urls: Array<Url>,
-}
+  name: string,
+  id: number,
+  description: string,
+  modified: string,
+  thumbnail: Thumbnail,
+  resourceURI: string,
+  comics: CharacterComics,
+  series: NestedData,
+  stories: NestedData,
+  events: NestedData,
+  urls: Array<Url>
+};
 
 type CharacterComics = {
-    items: Array<CharacterComicItems>,
-    collectionURI: string,
-    available: number
-}
+  items: Array<CharacterComicItems>,
+  collectionURI: string,
+  available: number
+};
 export type CharacterComicItems = {
-    name: string,
-    resourceURI: string
-}
+  name: string,
+  resourceURI: string
+};

@@ -1,12 +1,15 @@
-/* @flow */ 
-import { createSelector } from 'reselect';
-import type{State} from '../flowTypes'
+/* @flow */
 
-const comicSelector = (state:State) => state.entities.comics;
+import { createSelector } from "reselect";
+import type { State } from "../flowTypes";
+import type { ComicsResults } from "../flowTypes/comicTypes";
 
-const paginationDataSelector = (state:State) => state.pagination.fetchComics;
+const comicSelector = (state: State) => state.entities.comics;
 
-const pageComicsTotalSelector = (state:State) => state.pagination.fetchComics.comics;
+const paginationDataSelector = (state: State) => state.pagination.fetchComics;
+
+const pageComicsTotalSelector = (state: State) =>
+  state.pagination.fetchComics.comics;
 
 const relevantComicSelector = createSelector(
   comicSelector,
@@ -17,11 +20,10 @@ const relevantComicSelector = createSelector(
     if (!idsList) {
       return;
     }
-    const result = idsList.map(item => {
+    const results = idsList.map(item => {
       return comics[item];
     });
-
-    return result;
+    return (results: ComicsResults);
   }
 );
 

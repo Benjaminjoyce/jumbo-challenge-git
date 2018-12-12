@@ -1,6 +1,8 @@
 /* @flow */
 import { normalize, schema } from 'normalizr';
 import md5 from 'md5';
+import type{State} from '../flowTypes'
+import type{Action}from '../actions'
 
 const PUBLIC_KEY = 'f4a98ab558f3985f917fbc86ab5bf8a5';
 const PRIV_KEY = '037048bbc0323698281e29bb0f596cfc365018c2';
@@ -52,16 +54,25 @@ const callApi = (endpoint, schema, params) => {
   );
 };
 
-export default store => next => action => {
+type Store = {
+  dispatch:Dispatch,
+  getState:GetState
+}
 
+type Dispatch = (Action | ThunkAction | PromiseAction) => any;
+type GetState = () => State;
+type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
+type PromiseAction = Promise<Action>;
+type Next = Action => ActionWith 
+type ActionWith = any => Object
+
+export default (store:Store) => (next:Next) => (action:Action) => {
   const callAPI = action[CALL_API];
-console.log(action)
   if (typeof callAPI === 'undefined') {
     return next(action);
   }
   let { endPoint } = callAPI;
   const { schema, types, params } = callAPI;
-
   if (typeof endPoint === 'function') {
     endPoint = endPoint(store.getState());
   }
@@ -78,8 +89,8 @@ console.log(action)
     return finalAction;
   };
 
-  //ARRAY DESTRUCTERING
   const [requestType, successType, failureType] = types;
+
   next(actionWith({ type: requestType }));
 
   return callApi(endPoint, schema, params).then(
